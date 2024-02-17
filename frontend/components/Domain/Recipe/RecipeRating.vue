@@ -2,7 +2,7 @@
   <div @click.prevent>
     <v-rating
       v-model="rating"
-      :readonly="!loggedIn"
+      :readonly="!isOwnGroup"
       color="secondary"
       background-color="secondary lighten-3"
       length="5"
@@ -10,6 +10,7 @@
       :size="small ? 15 : undefined"
       hover
       :value="value"
+      clearable
       @input="updateRating"
       @click="updateRating"
     ></v-rating>
@@ -17,7 +18,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 export default defineComponent({
   props: {
@@ -44,15 +46,15 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { $auth } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { isOwnGroup } = useLoggedInState();
 
     const rating = ref(props.value);
 
     const api = useUserApi();
-    function updateRating(val: number) {
+    function updateRating(val: number | null) {
+      if (val === 0) {
+        val = null;
+      }
       if (!props.emitOnly) {
         api.recipes.patchOne(props.slug, {
           rating: val,
@@ -61,7 +63,7 @@ export default defineComponent({
       context.emit("input", val);
     }
 
-    return { loggedIn, rating, updateRating };
+    return { isOwnGroup, rating, updateRating };
   },
 });
 </script>

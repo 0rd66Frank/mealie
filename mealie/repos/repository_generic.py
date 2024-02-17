@@ -7,14 +7,14 @@ from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, case, delete, func, select
+from sqlalchemy import Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema._mealie import MealieModel
-from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationBase, PaginationQuery
 from mealie.schema.response.query_filter import QueryFilter
 from mealie.schema.response.query_search import SearchFilter
 
@@ -106,7 +106,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             except AttributeError:
                 self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
         result = self.session.execute(q.offset(start).limit(limit)).unique().scalars().all()
-        return [eff_schema.from_orm(x) for x in result]
+        return [eff_schema.model_validate(x) for x in result]
 
     def multi_query(
         self,
@@ -129,7 +129,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         q = q.offset(start).limit(limit)
         result = self.session.execute(q).unique().scalars().all()
-        return [eff_schema.from_orm(x) for x in result]
+        return [eff_schema.model_validate(x) for x in result]
 
     def _query_one(self, match_value: str | int | UUID4, match_key: str | None = None) -> Model:
         """
@@ -161,21 +161,26 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if not result:
             return None
 
-        return eff_schema.from_orm(result)
+        return eff_schema.model_validate(result)
 
     def create(self, data: Schema | BaseModel | dict) -> Schema:
-        data = data if isinstance(data, dict) else data.dict()
-        new_document = self.model(session=self.session, **data)
-        self.session.add(new_document)
-        self.session.commit()
+        try:
+            data = data if isinstance(data, dict) else data.model_dump()
+            new_document = self.model(session=self.session, **data)
+            self.session.add(new_document)
+            self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+
         self.session.refresh(new_document)
 
-        return self.schema.from_orm(new_document)
+        return self.schema.model_validate(new_document)
 
     def create_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         new_documents = []
         for document in data:
-            document = document if isinstance(document, dict) else document.dict()
+            document = document if isinstance(document, dict) else document.model_dump()
             new_document = self.model(session=self.session, **document)
             new_documents.append(new_document)
 
@@ -185,7 +190,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         for created_document in new_documents:
             self.session.refresh(created_document)
 
-        return [self.schema.from_orm(x) for x in new_documents]
+        return [self.schema.model_validate(x) for x in new_documents]
 
     def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
         """Update a database entry.
@@ -197,18 +202,18 @@ class RepositoryGeneric(Generic[Schema, Model]):
         Returns:
             dict: Returns a dictionary representation of the database entry
         """
-        new_data = new_data if isinstance(new_data, dict) else new_data.dict()
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         entry = self._query_one(match_value=match_value)
         entry.update(session=self.session, **new_data)
 
         self.session.commit()
-        return self.schema.from_orm(entry)
+        return self.schema.model_validate(entry)
 
     def update_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         document_data_by_id: dict[str, dict] = {}
         for document in data:
-            document_data = document if isinstance(document, dict) else document.dict()
+            document_data = document if isinstance(document, dict) else document.model_dump()
             document_data_by_id[document_data["id"]] = document_data
 
         documents_to_update_query = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))
@@ -221,14 +226,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
             updated_documents.append(document_to_update)
 
         self.session.commit()
-        return [self.schema.from_orm(x) for x in updated_documents]
+        return [self.schema.model_validate(x) for x in updated_documents]
 
     def patch(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
-        new_data = new_data if isinstance(new_data, dict) else new_data.dict()
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         entry = self._query_one(match_value=match_value)
 
-        entry_as_dict = self.schema.from_orm(entry).dict()
+        entry_as_dict = self.schema.model_validate(entry).model_dump()
         entry_as_dict.update(new_data)
 
         return self.update(match_value, entry_as_dict)
@@ -237,7 +242,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         match_key = match_key or self.primary_key
 
         result = self._query_one(value, match_key)
-        results_as_model = self.schema.from_orm(result)
+        results_as_model = self.schema.model_validate(result)
 
         try:
             self.session.delete(result)
@@ -251,7 +256,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def delete_many(self, values: Iterable) -> Schema:
         query = self._query().filter(self.model.id.in_(values))  # type: ignore
         results = self.session.execute(query).unique().scalars().all()
-        results_as_model = [self.schema.from_orm(result) for result in results]
+        results_as_model = [self.schema.model_validate(result) for result in results]
 
         try:
             # we create a delete statement for each row
@@ -290,7 +295,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             return self.session.scalar(q)
         else:
             q = self._query(override_schema=eff_schema).filter(attribute_name == attr_match)
-            return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
+            return [eff_schema.model_validate(x) for x in self.session.execute(q).scalars().all()]
 
     def page_all(self, pagination: PaginationQuery, override=None, search: str | None = None) -> PaginationBase[Schema]:
         """
@@ -304,13 +309,17 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
-        pagination_result = pagination.copy()
+        pagination_result = pagination.model_copy()
         q = self._query(override_schema=eff_schema, with_options=False)
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
         if search:
             q = self.add_search_to_query(q, eff_schema, search)
+
+        if not pagination_result.order_by and not search:
+            # default ordering if not searching
+            pagination_result.order_by = "created_at"
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
@@ -327,7 +336,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             per_page=pagination_result.per_page,
             total=count,
             total_pages=total_pages,
-            items=[eff_schema.from_orm(s) for s in data],
+            items=[eff_schema.model_validate(s) for s in data],
         )
 
     def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
@@ -371,32 +380,63 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.page < 1:
             pagination.page = 1
 
-        if pagination.order_by:
-            if order_attr := getattr(self.model, pagination.order_by, None):
-                # queries handle uppercase and lowercase differently, which is undesirable
-                if isinstance(order_attr.type, sqltypes.String):
-                    order_attr = func.lower(order_attr)
-
-                if pagination.order_direction == OrderDirection.asc:
-                    order_attr = order_attr.asc()
-                elif pagination.order_direction == OrderDirection.desc:
-                    order_attr = order_attr.desc()
-
-                query = query.order_by(order_attr)
-
-            elif pagination.order_by == "random":
-                # randomize outside of database, since not all db's can set random seeds
-                # this solution is db-independent & stable to paging
-                temp_query = query.with_only_columns(self.model.id)
-                allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
-                order = list(range(len(allids)))
-                random.seed(pagination.pagination_seed)
-                random.shuffle(order)
-                random_dict = dict(zip(allids, order, strict=True))
-                case_stmt = case(random_dict, value=self.model.id)
-                query = query.order_by(case_stmt)
-
+        query = self.add_order_by_to_query(query, pagination)
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
+
+    def add_order_by_to_query(self, query: Select, pagination: PaginationQuery) -> Select:
+        if not pagination.order_by:
+            return query
+
+        elif pagination.order_by == "random":
+            # randomize outside of database, since not all db's can set random seeds
+            # this solution is db-independent & stable to paging
+            temp_query = query.with_only_columns(self.model.id)
+            allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
+            order = list(range(len(allids)))
+            random.seed(pagination.pagination_seed)
+            random.shuffle(order)
+            random_dict = dict(zip(allids, order, strict=True))
+            case_stmt = case(random_dict, value=self.model.id)
+            return query.order_by(case_stmt)
+
+        else:
+            for order_by_val in pagination.order_by.split(","):
+                try:
+                    order_by_val = order_by_val.strip()
+                    if ":" in order_by_val:
+                        order_by, order_dir_val = order_by_val.split(":")
+                        order_dir = OrderDirection(order_dir_val)
+                    else:
+                        order_by = order_by_val
+                        order_dir = pagination.order_direction
+
+                    _, order_attr, query = QueryFilter.get_model_and_model_attr_from_attr_string(
+                        order_by, self.model, query=query
+                    )
+
+                    if order_dir is OrderDirection.asc:
+                        order_attr = order_attr.asc()
+                    elif order_dir is OrderDirection.desc:
+                        order_attr = order_attr.desc()
+
+                    # queries handle uppercase and lowercase differently, which is undesirable
+                    if isinstance(order_attr.type, sqltypes.String):
+                        order_attr = func.lower(order_attr)
+
+                    if pagination.order_by_null_position is OrderByNullPosition.first:
+                        order_attr = nulls_first(order_attr)
+                    elif pagination.order_by_null_position is OrderByNullPosition.last:
+                        order_attr = nulls_last(order_attr)
+
+                    query = query.order_by(order_attr)
+
+                except ValueError as e:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f'Invalid order_by statement "{pagination.order_by}": "{order_by_val}" is invalid',
+                    ) from e
+
+            return query
 
     def add_search_to_query(self, query: Select, schema: type[Schema], search: str) -> Select:
         search_filter = SearchFilter(self.session, search, schema._normalize_search)

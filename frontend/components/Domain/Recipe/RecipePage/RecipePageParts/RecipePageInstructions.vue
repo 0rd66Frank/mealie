@@ -1,7 +1,7 @@
 <template>
   <section @keyup.ctrl.90="undoMerge">
     <!-- Ingredient Link Editor -->
-    <v-dialog v-model="dialog" width="600">
+    <v-dialog v-if="dialog" v-model="dialog" width="600">
       <v-card :ripple="false">
         <v-app-bar dark color="primary" class="mt-n1 mb-3">
           <v-icon large left>
@@ -49,11 +49,17 @@
         <v-card-actions>
           <BaseButton cancel @click="dialog = false"> </BaseButton>
           <v-spacer></v-spacer>
-          <BaseButton color="info" @click="autoSetReferences">
-            <template #icon> {{ $globals.icons.robot }}</template>
-            {{ $t("recipe.auto") }}
-          </BaseButton>
-          <BaseButton save @click="setIngredientIds"> </BaseButton>
+          <div class="d-flex flex-wrap justify-end">
+            <BaseButton class="my-1" color="info" @click="autoSetReferences">
+              <template #icon> {{ $globals.icons.robot }}</template>
+              {{ $t("recipe.auto") }}
+            </BaseButton>
+            <BaseButton class="ml-2 my-1" save @click="setIngredientIds"> </BaseButton>
+            <BaseButton v-if="availableNextStep" class="ml-2 my-1" @click="saveAndOpenNextLinkIngredients">
+              <template #icon> {{ $globals.icons.forward }}</template>
+              {{ $t("recipe.nextStep") }}
+            </BaseButton>
+          </div>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -84,7 +90,7 @@
         <div v-for="(step, index) in value" :key="step.id" class="list-group-item">
           <v-app-bar
             v-if="step.id && showTitleEditor[step.id]"
-            class="primary mx-1 mt-6"
+            class="primary mt-6"
             style="cursor: pointer"
             dark
             dense
@@ -108,14 +114,14 @@
           </v-app-bar>
           <v-hover v-slot="{ hover }">
             <v-card
-              class="ma-1"
+              class="my-3"
               :class="[{ 'on-hover': hover }, isChecked(index)]"
               :elevation="hover ? 12 : 2"
               :ripple="false"
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <span class="handle">
+                <span :class="isEditForm ? 'handle' : ''">
                   <v-icon v-if="isEditForm" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
                   {{ $t("recipe.step-index", { step: index + 1 }) }}
                 </span>
@@ -219,6 +225,7 @@
         </div>
       </TransitionGroup>
     </draggable>
+    <v-divider class="mt-10 d-flex d-md-none"/>
   </section>
 </template>
 
@@ -233,6 +240,7 @@ import {
   onMounted,
   useContext,
   computed,
+  nextTick,
 } from "@nuxtjs/composition-api";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
@@ -396,6 +404,8 @@ export default defineComponent({
       activeRefs.value = refs.map((ref) => ref.referenceId ?? "");
     }
 
+    const availableNextStep = computed(() => activeIndex.value < props.value.length - 1);
+
     function setIngredientIds() {
       const instruction = props.value[activeIndex.value];
       instruction.ingredientReferences = activeRefs.value.map((ref) => {
@@ -412,6 +422,20 @@ export default defineComponent({
         }
       });
       state.dialog = false;
+    }
+
+    function saveAndOpenNextLinkIngredients() {
+      const currentStepIndex = activeIndex.value;
+
+      if(!availableNextStep.value) {
+        return; // no next step, the button calling this function should not be shown
+      }
+
+      setIngredientIds();
+      const nextStep = props.value[currentStepIndex + 1];
+      // close dialog before opening to reset the scroll position
+      nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
+
     }
 
     function setUsedIngredients() {
@@ -624,6 +648,8 @@ export default defineComponent({
       mergeAbove,
       openDialog,
       setIngredientIds,
+      availableNextStep,
+      saveAndOpenNextLinkIngredients,
       undoMerge,
       toggleDisabled,
       isChecked,
@@ -667,9 +693,6 @@ export default defineComponent({
 }
 .list-group {
   min-height: 38px;
-}
-.list-group-item {
-  cursor: move;
 }
 .list-group-item i {
   cursor: pointer;

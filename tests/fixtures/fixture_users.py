@@ -3,10 +3,10 @@ from typing import Generator
 
 from pytest import fixture
 from starlette.testclient import TestClient
+
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
-
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -16,7 +16,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
     group = group or random_string(12)
 
     registration = utils.user_registration_factory()
-    response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
+    response = api_client.post("/api/users/register", json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
 
     form_data = {"username": registration.username, "password": registration.password}
@@ -84,7 +84,7 @@ def g2_user(admin_token, api_client: TestClient):
 @fixture(scope="module")
 def unique_user(api_client: TestClient):
     registration = utils.user_registration_factory()
-    response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
+    response = api_client.post("/api/users/register", json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
 
     form_data = {"username": registration.username, "password": registration.password}

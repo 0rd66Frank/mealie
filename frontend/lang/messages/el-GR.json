@@ -76,7 +76,8 @@
     "cookbook-events": "Cookbook Events",
     "tag-events": "Tag Events",
     "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "when-a-new-user-joins-your-group": "When a new user joins your group",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Άκυρο",
@@ -113,7 +114,10 @@
     "json": "JSON",
     "keyword": "Λέξη-κλειδί",
     "link-copied": "Ο Σύνδεσμος Αντιγράφηκε",
+    "loading": "Loading",
     "loading-events": "Loading Events",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Φόρτωση Συνταγών",
     "message": "Μήνυμα",
     "monday": "Δευτέρα",
@@ -124,6 +128,7 @@
     "no-recipe-found": "Δεν βρέθηκαν συνταγές",
     "ok": "ΟΚ",
     "options": "Επιλογές:",
+    "plural-name": "Plural Name",
     "print": "Εκτύπωση",
     "print-preferences": "Προτιμήσεις Εκτύπωσης",
     "random": "Τυχαίο",
@@ -192,7 +197,10 @@
     "export-all": "Εξαγωγή όλων",
     "refresh": "Ανανέωση",
     "upload-file": "Μεταφόρτωση αρχείου",
-    "created-on-date": "Δημιουργήθηκε στις: {0}"
+    "created-on-date": "Δημιουργήθηκε στις: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό τον ασφαλή σύνδεσμο <b>{groupName}<b/>;",
@@ -207,6 +215,7 @@
     "group-id-with-value": "Αναγνωριστικό ομάδας: {groupID}",
     "group-name": "Όνομα Ομάδας",
     "group-not-found": "Η Ομάδα δεν βρέθηκε",
+    "group-token": "Group Token",
     "group-with-value": "Ομάδα: {groupID}",
     "groups": "Ομάδες",
     "manage-groups": "Διαχείριση Ομάδων",
@@ -242,6 +251,7 @@
     "general-preferences": "Γενικές προτιμήσεις",
     "group-recipe-preferences": "Προτιμήσεις Συνταγών Ομάδας",
     "report": "Αναφορά",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Διαχείριση ομάδων",
     "admin-group-management": "Διαχείριση Ομάδας Διαχειριστών",
     "admin-group-management-text": "Changes to this group will be reflected immediately.",
@@ -249,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Δημιουργία νέου σχεδίου γεύματος",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Δείπνο Αυτή Τη Εβδομάδα",
     "dinner-today": "Δείπνο Σήμερα",
     "dinner-tonight": "ΔΕΙΠΝΟ ΣΗΜΕΡΑ",
@@ -296,7 +307,7 @@
     "for-type-meal-types": "for {0} meal types",
     "meal-plan-rules": "Κανόνες Προγράμματος Γευμάτων",
     "new-rule": "Νέος κανόνας",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for you meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
     "recipe-rules": "Recipe Rules",
     "applies-to-all-days": "Applies to all days",
@@ -345,7 +356,11 @@
     "recipe-1": "Recipe 1",
     "recipe-2": "Recipe 2",
     "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Μαζική Προσθήκη",
@@ -456,9 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recipe added to list",
+    "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recipe added to mealplan",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
     "quantity": "Quantity",
     "choose-unit": "Choose Unit",
@@ -479,6 +499,13 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Locked",
     "public-link": "Public Link",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Edit Timeline Event",
     "timeline": "Timeline",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
@@ -488,10 +515,11 @@
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
     "last-made-date": "Last Made {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -509,6 +537,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Import from Zip",
@@ -529,7 +559,10 @@
     "tree-view": "Tree View",
     "recipe-yield": "Recipe Yield",
     "unit": "Unit",
-    "upload-image": "Upload image"
+    "upload-image": "Upload image",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Σύνθετη Αναζήτηση",
@@ -547,14 +580,17 @@
     "tag-filter": "Φίλτρο Ετικέτας",
     "search-hint": "Press '/'",
     "advanced": "Advanced",
-    "auto-search": "Auto Search"
+    "auto-search": "Auto Search",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Προσθήκη νέου θέματος",
     "admin-settings": "Ρυθμίσεις Διαχειριστή",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Αντίγραφο ασφαλείας αποθηκεύτηκαν στο: {path}",
       "backup-deleted": "Το Αντίγραφο διαγράφηκε",
+      "restore-success": "Restore successful",
       "backup-tag": "Αντίγραφο Ετικέτας",
       "create-heading": "Δημιουργία αντιγράφου ασφαλείας",
       "delete-backup": "Διαγραφή Αντιγράφου Ασφαλείας",
@@ -564,7 +600,6 @@
       "partial-backup": "Μερικό Αντίγραφο Ασφαλείας",
       "unable-to-delete-backup": "Αδυναμία διαγραφής αντιγράφου ασφαλείας.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
-      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
       "backup-restore": "Backup Restore",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
@@ -664,11 +699,13 @@
     "configuration": "Configuration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "Succeeded",
@@ -759,7 +796,8 @@
     "tags": "Ετικέτες",
     "untagged-count": "Χωρίς ετικέτα {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "tag-name": "Tag Name",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Εργαλεία",
@@ -768,7 +806,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Διαχειριστής",
@@ -803,6 +842,7 @@
     "password-updated": "Ο κωδικός πρόσβασης ενημερώθηκε",
     "password": "Κωδικός",
     "password-strength": "Ο κωδικός είναι {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Εγγραφή",
     "reset-password": "Επαναφορά Κωδικού",
     "sign-in": "Είσοδος",
@@ -823,6 +863,7 @@
     "username": "Όνομα Χρήστη",
     "users-header": "ΧΡΗΣΤΕΣ",
     "users": "Χρήστες",
+    "user-not-found": "User not found",
     "webhook-time": "Χρόνος Webhook",
     "webhooks-enabled": "Το webhook είναι ενεργό",
     "you-are-not-allowed-to-create-a-user": "Δεν επιτρέπεται να δημιουργήσετε ένα χρήστη",
@@ -845,6 +886,7 @@
     "user-management": "User Management",
     "reset-locked-users": "Reset Locked Users",
     "admin-user-creation": "Admin User Creation",
+    "admin-user-management": "Admin User Management",
     "user-details": "User Details",
     "user-name": "User Name",
     "authentication-method": "Authentication Method",
@@ -854,7 +896,12 @@
     "user-can-invite-other-to-group": "User can invite other to group",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "enable-advanced-features": "Enable advanced features",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "μεταφρασμένο",
@@ -875,7 +922,9 @@
       "create-food": "Create Food",
       "food-label": "Food Label",
       "edit-food": "Edit Food",
-      "food-data": "Food Data"
+      "food-data": "Food Data",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -886,13 +935,18 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
       "abbreviation": "Abbreviation",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Description",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Edit Unit",
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -921,6 +975,8 @@
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Seed Data",
     "seed": "Seed",
     "data-management": "Data Management",
@@ -928,10 +984,26 @@
     "select-data": "Select Data",
     "select-language": "Select Language",
     "columns": "Columns",
-    "combine": "Combine"
+    "combine": "Combine",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "User Registration",
+    "registration-success": "Registration Success",
     "join-a-group": "Join a Group",
     "create-a-new-group": "Create a New Group",
     "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
@@ -978,6 +1050,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
+    "toolbar": "Toolbar",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
@@ -985,6 +1058,8 @@
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
@@ -1060,6 +1135,7 @@
     "welcome-user": "👋 Welcome, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
+    "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
     "account-summary-description": "Here's a summary of your group's information",
     "group-statistics": "Group Statistics",
@@ -1110,6 +1186,8 @@
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "cookbook-with-name": "Cookbook {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

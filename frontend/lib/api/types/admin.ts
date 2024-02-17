@@ -33,6 +33,10 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  defaultGroupSlug?: string;
+}
+export interface AppStartupInfo {
+  isFirstLogin: boolean;
 }
 export interface AppStatistics {
   totalRecipes: number;
@@ -40,6 +44,22 @@ export interface AppStatistics {
   totalGroups: number;
   uncategorizedRecipes: number;
   untaggedRecipes: number;
+}
+export interface AppTheme {
+  lightPrimary?: string;
+  lightAccent?: string;
+  lightSecondary?: string;
+  lightSuccess?: string;
+  lightInfo?: string;
+  lightWarning?: string;
+  lightError?: string;
+  darkPrimary?: string;
+  darkAccent?: string;
+  darkSecondary?: string;
+  darkSuccess?: string;
+  darkInfo?: string;
+  darkWarning?: string;
+  darkError?: string;
 }
 export interface BackupOptions {
   recipes?: boolean;
@@ -131,9 +151,6 @@ export interface CustomPageOut {
   position: number;
   categories?: RecipeCategoryResponse[];
   id: number;
-}
-export interface DockerVolumeText {
-  text: string;
 }
 export interface EmailReady {
   ready: boolean;

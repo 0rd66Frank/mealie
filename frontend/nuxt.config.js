@@ -1,5 +1,6 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  target: "static",
   head: {
     title: "Mealie",
     meta: [
@@ -15,7 +16,7 @@ export default {
         hid: "og:image",
         property: "og:image",
         content:
-          "https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-512x512.png",
+          "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png",
       },
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -25,7 +26,12 @@ export default {
         content: "Mealie is a recipe management app for your kitchen.",
       },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [
+      { hid: "favicon", rel: "icon", type: "image/x-icon", href: "/favicon.ico", "data-n-head": "ssr" },
+      { hid: "shortcut icon", rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png", "data-n-head": "ssr" },
+      { hid: "apple-touch-icon", rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
+      { hid: "mask-icon", rel: "mask-icon", href: "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" }
+    ],
   },
 
   env: {
@@ -189,6 +195,7 @@ export default {
       { code: "fr-FR", file: "fr-FR.json" },
       { code: "zh-TW", file: "zh-TW.json" },
       { code: "af-ZA", file: "af-ZA.json" },
+      { code: "is-IS", file: "is-IS.json" },
       { code: "sl-SI", file: "sl-SI.json" },
       { code: "ru-RU", file: "ru-RU.json" },
       { code: "he-IL", file: "he-IL.json" },
@@ -274,7 +281,7 @@ export default {
         info: process.env.THEME_DARK_INFO || "#1976d2",
         warning: process.env.THEME_DARK_WARNING || "#FF6D00",
         error: process.env.THEME_DARK_ERROR || "#EF5350",
-        background: "#202021",
+        background: "#1E1E1E",
       },
       light: {
         primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
@@ -323,7 +330,7 @@ export default {
       /* meta options */
       name: "Mealie",
       description: "Mealie is a recipe management and meal planning app",
-      theme_color: "#E58325",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
       ogSiteName: "Mealie",
     },
     manifest: {
@@ -331,43 +338,49 @@ export default {
       lang: "en",
       name: "Mealie",
       short_name: "Mealie",
-      title: "Mealie",
+      description: "Mealie is a recipe management and meal planning app",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
       background_color: "#FFFFFF",
+      display: "standalone",
       share_target: {
-        action: "/",
+        action: "/r/create/url",
         method: "GET",
         params: {
-          title: "title",
-          text: "recipe_import_url",
+          /* title and url are not currently used in Mealie. If there are issues
+             with sharing, uncommenting those lines might help solve the puzzle. */
+          // "title": "title",
+          "text": "recipe_import_url",
+          // "url": "url",
         },
       },
+      icons: [
+        {
+          src: "/icons/android-chrome-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "/icons/android-chrome-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "/icons/android-chrome-maskable-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "/icons/android-chrome-maskable-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
     },
-    icons: [
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-maskable-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "maskable",
-      },
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-maskable-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "maskable",
-      },
-    ],
+    icon: false, // disables the icon module
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -8,7 +8,7 @@
 
 Mealie offers two main ways to create recipes. You can use the integrated recipe-scraper to create recipes from hundreds of websites, or you can create recipes manually using the recipe editor.
 
-[Creation Demo](https://demo.mealie.io/recipe/create/url){ .md-button .md-button--primary .align-right }
+[Creation Demo](https://demo.mealie.io/g/home/r/create/url){ .md-button .md-button--primary .align-right }
 
 ### Importing Recipes
 
@@ -34,21 +34,21 @@ Mealie has a robust and flexible recipe organization system with a few different
 
 Categories are the overarching organizer for recipes. You can assign as many categories as you'd like to a recipe, but we recommend that you try to limit the categories you assign to a recipe to one or two. This helps keep categories as focused as possible while still allowing you to find recipes that are related to each other. For example, you might assign a recipe to the category **Breakfast**, **Lunch**, **Dinner**, or **Side**.
 
-[Categories Demo](https://demo.mealie.io/recipes/categories){ .md-button .md-button--primary }
+[Categories Demo](https://demo.mealie.io/g/home/recipes/categories){ .md-button .md-button--primary }
 
 #### Tags
 
-Tags, are nearly identical to categories in function but play a secondary role in some cases. As such, we recommend that you use tags freely to help you organize your recipes by more specific topics. For example, if a recipe can be frozen or is a great left-over meal, you could assign the tags **frozen** and **left-over** and easily filter for those at a later time.
+Tags are nearly identical to categories in function but play a secondary role in some cases. As such, we recommend that you use tags freely to help you organize your recipes by more specific topics. For example, if a recipe can be frozen or is a great left-over meal, you could assign the tags **frozen** and **left-over** and easily filter for those at a later time.
 
-[Tags Demo](https://demo.mealie.io/recipes/tags){ .md-button .md-button--primary }
+[Tags Demo](https://demo.mealie.io/g/home/recipes/tags){ .md-button .md-button--primary }
 
 #### Tools
 
-Tools, are another way that some users like to organize their recipes. If a recipe requires some specific equipment if can be helpful to assign the tools to the recipes. This is particularly useful for things that are less common, like a pressure cooker, or a sous vide.
+Tools are another way that some users like to organize their recipes. If a recipe requires some specific equipment, it can be helpful to assign tools to the recipes. This is particularly useful for things that are less common, like a pressure cooker or a sous vide.
 
-Each of the above organizers can be filtered in searches, and have their own pages where you can view all the recipes that are associated with those organizers.
+Each of the above organizers can be filtered in searches and have their own pages where you can view all the recipes that are associated with those organizers.
 
-[Tools Demo](https://demo.mealie.io/recipes/tools){ .md-button .md-button--primary }
+[Tools Demo](https://demo.mealie.io/g/home/recipes/tools){ .md-button .md-button--primary }
 
 #### Cookbooks
 
@@ -60,29 +60,29 @@ Mealie also has the concept of cookbooks. These can be created inside of a group
 - Pasta Sides: Recipes that have both the **Side** category and the **Pasta** tag
 - Dessert Breads: Recipes that have both the **Bread** category and the **Dessert** tag
 
-[Cookbooks Demo](https://demo.mealie.io/group/cookbooks){ .md-button .md-button--primary }
+[Cookbooks Demo](https://demo.mealie.io/g/home/cookbooks){ .md-button .md-button--primary }
 
 ## Meal Planning
 
-Mealie uses a calendar like view to help you plan your meals. It shows you the previous day, and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons, or manually add an entry.
+Mealie uses a calendar like view to help you plan your meals. It shows you the previous day and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons or manually add an entry.
 
 !!! tip
     You can also add a "Note" type entry to your meal-plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
-[Mealplanner Demo](https://demo.mealie.io/group/mealplan/planner){ .md-button .md-button--primary }
+[Mealplanner Demo](https://demo.mealie.io/group/mealplan/planner/view){ .md-button .md-button--primary }
 
 ### Planner Rules
 
-The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
+The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
 
 [Planner Settings Demo](https://demo.mealie.io/group/mealplan/settings){ .md-button .md-button--primary }
 
 ## Shopping Lists
 
-The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list, or link a recipe and all of it's ingredients to track meals during the week.
+The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list or link a recipe and all of it's ingredients to track meals during the week.
 
 !!! warning
-    At this time there isn't a tight integration between meal-plans and shopping lists, however it's something we have planned for the future.
+    At this time there isn't a tight integration between meal-plans and shopping lists; however, it's something we have planned for the future.
 
 
 [Shopping List Demo](https://demo.mealie.io/shopping-lists){ .md-button .md-button--primary }
@@ -90,7 +90,7 @@ The shopping lists feature is a great way to keep track of what you need to buy 
 
 ## Data Management
 
-Managing a robust collection of recipes inevitable requires a lot of data. Mealie has a robust data management system that allows you to easily some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
+Managing a robust collection of recipes inevitable requires a lot of data. Mealie has a robust data management system that allows you to easily export some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
 
 - Recipes
     - Bulk Actions
@@ -113,7 +113,7 @@ Managing a robust collection of recipes inevitable requires a lot of data. Meali
 
 ### Site Settings
 
-The site settings page contains general information about your installation like the application version, some configuration details, and some utilities to help you confirm your installation is working as expected. For example, you can use the Email Configuration section to validate that your email credentials are setup correctly and that the email service is working as expected. Additionally, there is a docker-volume utility that will confirm your volumes are configured and shared correctly between the front and backend of the application.
+The site settings page contains general information about your installation like the application version, some configuration details, and some utilities to help you confirm your installation is working as expected. For example, you can use the Email Configuration section to validate that your email credentials are set up correctly and that the email service is working as expected. Additionally, there is a docker-volume utility that will confirm your volumes are configured and shared correctly between the front and backend of the application.
 
 [Settings Demo](https://demo.mealie.io/admin/site-settings){ .md-button .md-button--primary }
 
@@ -125,7 +125,7 @@ There is a small management area for users and groups that allows you to create,
 
 ### Backups
 
-The backups page provides a full system backup of your installation including all assets and images related to recipes. These are archived into a zip file and stored on the server but can also be downloaded through the UI. Due to some issues in the past Mealie no longer performs automatic backups, **it is advised that during setup you also setup a backup strategy to ensure your data is not lost.**
+The backups page provides a full system backup of your installation including all assets and images related to recipes. These are archived into a zip file and stored on the server but can also be downloaded through the UI. Due to some issues in the past, Mealie no longer performs automatic backups; **it is advised that during setup you also set up a backup strategy to ensure your data is not lost.**
 
 
 [Backups Demo](https://demo.mealie.io/admin/backups){ .md-button .md-button--primary }

@@ -12,7 +12,7 @@
     "demo-status": "מצב הדגמה",
     "development": "פיתוח",
     "docs": "תיעוד",
-    "download-log": "הורדת יומן",
+    "download-log": "הורדת לוגים",
     "download-recipe-json": "הJSON האחרון שנקרא",
     "github": "גיטהאב",
     "log-lines": "שורות לוג",
@@ -76,7 +76,8 @@
     "cookbook-events": "אירועי ספרי בישול",
     "tag-events": "אירועי תגיות",
     "category-events": "אירועי קטגוריות",
-    "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה"
+    "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה",
+    "recipe-events": "אירועי מתכון"
   },
   "general": {
     "cancel": "ביטול",
@@ -113,7 +114,10 @@
     "json": "JSON",
     "keyword": "מילת מפתח",
     "link-copied": "קישור הועתק",
-    "loading-events": "Loading Events",
+    "loading": "טעינה",
+    "loading-events": "טוען",
+    "loading-recipe": "טוען מתכון...",
+    "loading-ocr-data": "טוען נתוני OCR...",
     "loading-recipes": "מתכונים בטעינה",
     "message": "הודעה",
     "monday": "שני",
@@ -124,6 +128,7 @@
     "no-recipe-found": "לא נמצא מתכון",
     "ok": "אישור",
     "options": "אפשרויות:",
+    "plural-name": "שם ברבים",
     "print": "הדפסה",
     "print-preferences": "העדפות הדפסה",
     "random": "אקראי",
@@ -192,7 +197,10 @@
     "export-all": "ייצא הכל",
     "refresh": "רענן",
     "upload-file": "העלאת קבצים",
-    "created-on-date": "נוצר ב-{0}"
+    "created-on-date": "נוצר ב-{0}",
+    "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
+    "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
+    "confirm-delete-generic-items": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -207,6 +215,7 @@
     "group-id-with-value": "מזהה קבוצה: {groupID}",
     "group-name": "שם קבוצה",
     "group-not-found": "קבוצה לא נמצאה",
+    "group-token": "טוקן קבוצתי",
     "group-with-value": "קבוצה: {groupID}",
     "groups": "קבוצות",
     "manage-groups": "ניהול קבוצות",
@@ -242,6 +251,7 @@
     "general-preferences": "העדפות כלליות",
     "group-recipe-preferences": "העדפות קבוצה",
     "report": "דיווח",
+    "report-with-id": "מספר דוח: {id}",
     "group-management": "ניהול קבוצה",
     "admin-group-management": "ניהול קבוצת מנהל",
     "admin-group-management-text": "השינויים לקבוצה זו יתבצעו מיידית.",
@@ -249,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "יצירת תכנית ארוחות חדשה",
+    "update-this-meal-plan": "עדכן את תכנון הארוחות",
     "dinner-this-week": "ארוחות ערב השבוע",
     "dinner-today": "ארוחת ערב היום",
     "dinner-tonight": "ארוחת ערב היום",
@@ -296,7 +307,7 @@
     "for-type-meal-types": "לכל סוגי הארוחות {0}",
     "meal-plan-rules": "חוקי תכנון ארוחות",
     "new-rule": "חוק חדש",
-    "meal-plan-rules-description": "אפשר ליצור חוקים להוספה אוטומטית למתכנן ארוחות. נעשה שימוש בחוקים האלה ע״י השרת כדי להחליט על קבוצה של מתכונים רנדומליים ליצירת תכנון ארוחות. יש לשים לב שאם החוקים מכילים את אותן הגדרות סוג או יום הקטגוריות של החוקים ימוזגו. בכללי, אין סיבה ליצור חוקים כפולים, אבל זה כן אפשרי.",
+    "meal-plan-rules-description": "אתה יכול ליצור כללים לבחירה אוטומטית של מתכונים עבור תוכניות הארוחות שלך. כללים אלה משמשים את השרת כדי לקבוע את מאגר המתכונים האקראי לבחירה בעת יצירת תוכניות ארוחות. שימו לב שאם לכללים יש אילוצי יום/סוג זהים אז הקטגוריות של הכללים ימוזגו. בפועל, מיותר ליצור חוקים כפולים, אבל אפשר לעשות זאת.",
     "new-rule-description": "ביצירת חוק חדש עבור תוכנית ארוחות ניתן להגביל את החוק עבור יום בשבוע או סוג של ארוחה. בכדי שהחוק יכסה את כל הימים והארוחות יש לבחור ב- \"הכל\", מה שיכלול את כל הימים והארוחות.",
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",
@@ -333,8 +344,8 @@
       "title": "מילי לפני V1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "description-long": "Mealie יכול לייבא מתכונים מ-Tandoor, תייצא את המתכון בפורמט הדיפולטיבי ולאחר מכן העלאה אותם בחזרה בפורמט zip.",
+      "title": "מתכוני Tandoor"
     },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
     "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
@@ -345,7 +356,11 @@
     "recipe-1": "מתכון 1",
     "recipe-2": "מתכון 2",
     "paprika-text": "מילי יכולה לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
-    "mealie-text": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא."
+    "mealie-text": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie יכולה לייבא מתכונים מהאתר- Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "הוספה כמותית",
@@ -408,7 +423,7 @@
     "grams": "גרם",
     "ingredient": "מרכיב",
     "ingredients": "מרכיבים",
-    "insert-ingredient": "Insert Ingredient",
+    "insert-ingredient": "הוסף מרכיב",
     "insert-section": "הוסף מקטע",
     "instructions": "הוראות",
     "key-name-required": "שם מפתח נדרש",
@@ -456,9 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "פורמט YYYY-MM-DD",
     "add-to-list": "הוסף לרשימה",
     "add-to-plan": "הוספה לתכנית",
+    "add-to-timeline": "הוסף לציר הזמן",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
+    "recipes-added-to-list": "מתכונים הוספו לרשימה",
+    "successfully-added-to-list": "נוסף לרשימה בהצלחה",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
+    "failed-to-add-recipes-to-list": "כשלון בהוספת מתכון לרשימה",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
+    "failed-to-add-to-list": "כשלון בהוספה לרשימה",
     "yield": "תשואה",
     "quantity": "כמות",
     "choose-unit": "בחירת יחידת מידה",
@@ -479,19 +499,27 @@
     "increase-scale-label": "העלה קנה מידה ב-1",
     "locked": "נעול",
     "public-link": "כתובת פומבית",
+    "timer": {
+      "kitchen-timer": "טיימר למטבח",
+      "start-timer": "התחל את הטיימר",
+      "pause-timer": "השהה את הטיימר",
+      "resume-timer": "המשך את הטיימר",
+      "stop-timer": "עצור את הטיימר"
+    },
     "edit-timeline-event": "עריכת אירוע ציר זמן",
     "timeline": "ציר זמן",
     "timeline-is-empty": "אין כלום בציר הזמן. נסה לעשות את המתכון הזה!",
-    "group-global-timeline": "{groupName} Global Timeline",
+    "group-global-timeline": "{groupName} ציר זמן גלובלי",
     "open-timeline": "פתח ציר זמן",
     "made-this": "הכנתי את זה",
     "how-did-it-turn-out": "איך יצא?",
     "user-made-this": "{user} הכין את זה",
     "last-made-date": "נעשה לאחרונה ב{date}",
-    "api-extras-description": "מתכונים אקסטרה הם פונקציה שמאפשרת שימוש ב- Mealie API. צמדי json של key/value במתכון מאפשרים לצד שלישי לקרוא להם. ניתן להשתמש במפתחות להכיל מידע על מנת להפעיל אוטומציות או הודעות מותאמות אישית למכשירים הרלוונטיים.",
+    "api-extras-description": "מתכונים נוספים הם יכולת מפתח של Mealie API. הם מאפשרים ליצור צמדי key/value בצורת JSON על מנת לקרוא אותם בתוכנת צד שלישית. תוכלו להשתמש בצמדים האלה כדי לספק מידע, לדוגמא להפעיל אוטומציות או הודעות מותאמות אישית למכשירים מסויימים.",
     "message-key": "מפתח הודעה",
     "parse": "ניתוח",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
+    "drop-image": "גרור תמונה",
     "enable-ingredient-amounts-to-use-this-feature": "אפשר לכמות המרכיבים להשתמש בפונקציה",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "לא ניתן לפענך מתכונים בהם יחידות או אוכל מוגדרים.",
     "parse-ingredients": "חילוץ רכיבים",
@@ -509,6 +537,8 @@
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
     "scrape-recipe-description": "קריאת מתכון בעזרת לינק. ספק את הלינק של האתר שברצונך לקרוא, ומילי תנסה לקרוא את המתכון מהאתר ולהוסיף אותו לאוסף.",
+    "scrape-recipe-have-a-lot-of-recipes": "יש לך הרבה מתכונים שאתה רוצה לקרוא בבת אחת?",
+    "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
     "import-original-keywords-as-tags": "ייבא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "import-from-zip": "ייבא מקובץ",
@@ -529,7 +559,10 @@
     "tree-view": "תצוגת עץ",
     "recipe-yield": "תשואת מתכון",
     "unit": "יחידה",
-    "upload-image": "העלה תמונה"
+    "upload-image": "העלה תמונה",
+    "screen-awake": "השאר את המסך פעיל",
+    "remove-image": "האם למחוק את התמונה?",
+    "nextStep": "השלב הבא"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -547,14 +580,17 @@
     "tag-filter": "סינון תגית",
     "search-hint": "לחץ '/'",
     "advanced": "מתקדם",
-    "auto-search": "חיפוש אוטומטי"
+    "auto-search": "חיפוש אוטומטי",
+    "no-results": "לא נמצאו תוצאות"
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
     "admin-settings": "הגדרות מנהל",
     "backup": {
+      "backup-created": "הגיבוי בוצע בהצלחה",
       "backup-created-at-response-export_path": "גיבוי נוצר ב {path}",
       "backup-deleted": "גיבוי נמחק",
+      "restore-success": "השחזור הצליח",
       "backup-tag": "תגית גיבוי",
       "create-heading": "Create a Backup",
       "delete-backup": "מחיקת גיבוי",
@@ -564,7 +600,6 @@
       "partial-backup": "גיבוי חלקי",
       "unable-to-delete-backup": "לא ניתן למחוק גיבוי.",
       "experimental-description": "גיבויים, סנאפשוט מלא של מלא של מסד הנתונים והסיפריות באתר. הגיבוי מכיל את כל המידע ולא ניתן להסיר מידע מהגיבוי. ניתן להתייחס לגיבוי כסנאפשוט של מילי בזמן ספציפי. כרגע {not-crossed-version} (מיגרציית נתונים לא מתבצעות אוטומטית). הם מאפשרים לייבא, לייצא ולגבות את האתר למקום חיצוני.",
-      "not-crossed-version": "מנגנון הגיבוי אינו חוצה גירסאות ולכן לא ניתן להשתמש בו להעברת המידע בין גירסאות שונות",
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במסד הנתונים ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
       "cannot-be-undone": "פעולה זו לא בלתי הפיכה - השתמש בזהירות.",
@@ -664,11 +699,13 @@
     "configuration": "הגדרות",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "מילי דורשת שקונטיינר הקצה הקדמי והקצה האחורי חולקים את באותו כונן / שטח אחסון בדוקר.\nכל זאת כל מנת לוודא שלקונטיינר תהיה גישה לתמונות הגיבוי או לנכסים בדיסק.",
-    "volumes-are-misconfigured": "כוננים אינם מוגדרים בצורה תקינה",
+    "volumes-are-misconfigured": "כוננים אינם מוגדרים בצורה תקינה.",
     "volumes-are-configured-correctly": "ה-Volumeים מוגדרים תקין.",
     "status-unknown-try-running-a-validation": "מצב לא ידוע. נסה להריץ אימות.",
     "validate": "אימות",
     "email-configuration-status": "מצב הגדרות דוא״ל",
+    "email-configured": "דואר אלקטרוני הוגדר",
+    "email-test-results": "תוצאות בדיקת דואר אלקטרוני",
     "ready": "מוכן",
     "not-ready": "לא מוכן - בדוק משתני סביבה",
     "succeeded": "הצליח",
@@ -759,7 +796,8 @@
     "tags": "תגיות",
     "untagged-count": "לא מתוייג {count}",
     "create-a-tag": "צור תגית",
-    "tag-name": "שם תגית"
+    "tag-name": "שם תגית",
+    "tag": "תגית"
   },
   "tool": {
     "tools": "כלים",
@@ -768,7 +806,8 @@
     "tool-name": "שם כלי",
     "create-new-tool": "יצירת כלי חדש",
     "on-hand-checkbox-label": "הראה מה יש לי במטבח",
-    "required-tools": "צריך כלים"
+    "required-tools": "צריך כלים",
+    "tool": "כלי"
   },
   "user": {
     "admin": "אדמין",
@@ -803,6 +842,7 @@
     "password-updated": "הסיסמה עודכנה",
     "password": "סיסמה",
     "password-strength": "חוזק הסיסמה {strength}",
+    "please-enter-password": "אנא הזן סיסמה חדשה.",
     "register": "הרשמה",
     "reset-password": "איפוס סיסמה",
     "sign-in": "התחברות",
@@ -823,6 +863,7 @@
     "username": "שם משתמש",
     "users-header": "משתמשים",
     "users": "משתמשים",
+    "user-not-found": "משתמש לא נמצא",
     "webhook-time": "זמן Webhook",
     "webhooks-enabled": "הפעלת Webhooks",
     "you-are-not-allowed-to-create-a-user": "אין הרשאה ליצור משתמש",
@@ -845,6 +886,7 @@
     "user-management": "ניהול משתמשים",
     "reset-locked-users": "אתחל משתמשים נעולים",
     "admin-user-creation": "יצירת משתמש אדמין",
+    "admin-user-management": "ניהול משתמשים",
     "user-details": "פרטי משתמש",
     "user-name": "שם משתמש",
     "authentication-method": "שיטת אימות",
@@ -854,7 +896,12 @@
     "user-can-invite-other-to-group": "משתמש יכול להזמין אחרים לקבוצה",
     "user-can-manage-group": "משתמש יכול לנהל קבוצה",
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
-    "enable-advanced-features": "אפשר אפשרויות מתקדמות"
+    "enable-advanced-features": "אפשר אפשרויות מתקדמות",
+    "it-looks-like-this-is-your-first-time-logging-in": "נראה שזו ההתחברות הראשונה שלך.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? דאג לשנות את המייל של בהגדרות המשתמש!",
+    "forgot-password": "שכחתי סיסמא",
+    "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
+    "changes-reflected-immediately": "השינויים למשתמש זה יבוצעו מיידית."
   },
   "language-dialog": {
     "translated": "תורגם",
@@ -875,7 +922,9 @@
       "create-food": "צור אוכל",
       "food-label": "תוית אוכל",
       "edit-food": "עריכת מזון",
-      "food-data": "נתוני אוכל"
+      "food-data": "נתוני אוכל",
+      "example-food-singular": "דוגמא: בצל",
+      "example-food-plural": "דוגמא: בצלים"
     },
     "units": {
       "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
@@ -886,13 +935,18 @@
       "merging-unit-into-unit": "ממזג את {0} לתוך {1}",
       "create-unit": "יצירת יחידה",
       "abbreviation": "קיצור",
+      "plural-abbreviation": "צורת הרבית",
       "description": "תיאור",
       "display-as-fraction": "הצגה כשבר",
       "use-abbreviation": "השתמש בקיצור",
       "edit-unit": "עריכת יחידה",
       "unit-data": "נתוני יחידה",
       "use-abbv": "השתמש בקיצור",
-      "fraction": "שבר"
+      "fraction": "שבר",
+      "example-unit-singular": "דוגמא: כפית",
+      "example-unit-plural": "דוגמא: כפיות",
+      "example-unit-abbreviation-singular": "דוגמא: כף",
+      "example-unit-abbreviation-plural": "דוגמא: כפות"
     },
     "labels": {
       "seed-dialog-text": "אכלס את מסד הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
@@ -921,6 +975,8 @@
       "delete-recipes": "מחיקת מתכונים",
       "source-unit-will-be-deleted": "יחידת המקור תמחק"
     },
+    "create-alias": "יצירת שם נרדף",
+    "manage-aliases": "נהל שמות נרדפים",
     "seed-data": "אכלס נתונים",
     "seed": "אכלס",
     "data-management": "ניהול מידע",
@@ -928,10 +984,26 @@
     "select-data": "בחר נתונים",
     "select-language": "בחירת שפה",
     "columns": "עמודות",
-    "combine": "שילוב"
+    "combine": "שילוב",
+    "categories": {
+      "edit-category": "ערוך קטגוריה",
+      "new-category": "קטגוריה חדשה",
+      "category-data": "נתוני קטגוריה"
+    },
+    "tags": {
+      "new-tag": "טאג חדש",
+      "edit-tag": "ערוך טאג",
+      "tag-data": "נתוני טאגים"
+    },
+    "tools": {
+      "new-tool": "כלי חדש",
+      "edit-tool": "ערוך כלי",
+      "tool-data": "נתוני כלים"
+    }
   },
   "user-registration": {
     "user-registration": "רישום משתמשים",
+    "registration-success": "ההרשמה הושלמה",
     "join-a-group": "הצטרפות לקבוצה",
     "create-a-new-group": "יצירת קבוצה חדשה",
     "provide-registration-token-description": "ספק בבקשה את טוקן הרישום המשוייך לקבוצה אליה ברצונך להצטרף. בכדי לקבל אותו יהיה צורך להשיג אותו מאחד מחברה הקבוצה הקיימים.",
@@ -978,6 +1050,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "עורך סריקת תווים",
+    "toolbar": "סרגל כלים",
     "selection-mode": "מצב בחירה",
     "pan-and-zoom-picture": "סובב והגדל תמונה",
     "split-text": "פיצול טקסט",
@@ -985,6 +1058,8 @@
     "split-by-block": "פצל לפי מבנה המלל",
     "flatten": "שטח בלי קשר למבנה המקורי",
     "help": {
+      "help": "עזרה",
+      "mouse-modes": "מצבי עכבר",
       "selection-mode": "מצב בחירה (ברירת מחדל)",
       "selection-mode-desc": "מצב בחירה זה הינו הראשי אשר ישמש להכנסת מידע:",
       "selection-mode-steps": {
@@ -1060,6 +1135,7 @@
     "welcome-user": "👋 שלום, {0}",
     "description": "ניהול פרופיל, מתכונים והגדרות קבוצה.",
     "get-invite-link": "קבלת קישור להזמנה",
+    "get-public-link": "כתובת פומבית",
     "account-summary": "פירוט משתמש",
     "account-summary-description": "סיכום המידע של הקבוצות שלך",
     "group-statistics": "נתונים סטטיסטיים של קבוצה",
@@ -1110,6 +1186,8 @@
     "require-all-tags": "זקוק לכל התגיות",
     "require-all-tools": "זקוק לכל הכלים",
     "cookbook-name": "שם ספר בישול",
-    "cookbook-with-name": "ספר בישול {0}"
+    "cookbook-with-name": "ספר בישול {0}",
+    "create-a-cookbook": "צור ספר בישול חדש",
+    "cookbook": "ספר בישול"
   }
 }

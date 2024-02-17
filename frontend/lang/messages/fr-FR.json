@@ -76,7 +76,8 @@
     "cookbook-events": "Événements du livre de recettes",
     "tag-events": "Événements des mots-clés",
     "category-events": "Événements de catégories",
-    "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe"
+    "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe",
+    "recipe-events": "Événements de recette"
   },
   "general": {
     "cancel": "Annuler",
@@ -113,7 +114,10 @@
     "json": "JSON",
     "keyword": "Mot-clé",
     "link-copied": "Lien copié",
+    "loading": "Chargement",
     "loading-events": "Chargement des événements",
+    "loading-recipe": "Chargement de la recette...",
+    "loading-ocr-data": "Chargement des données OCR...",
     "loading-recipes": "Chargement des recettes",
     "message": "Message",
     "monday": "Lundi",
@@ -124,6 +128,7 @@
     "no-recipe-found": "Aucune recette trouvée",
     "ok": "OK",
     "options": "Options :",
+    "plural-name": "Nom au pluriel",
     "print": "Imprimer",
     "print-preferences": "Préférences d'impression",
     "random": "Aléatoire",
@@ -192,7 +197,10 @@
     "export-all": "Exporter tout",
     "refresh": "Actualiser",
     "upload-file": "Transférer un fichier",
-    "created-on-date": "Créé le {0}"
+    "created-on-date": "Créé le {0}",
+    "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications.",
+    "clipboard-copy-failure": "Échec de la copie dans le presse-papiers.",
+    "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -207,6 +215,7 @@
     "group-id-with-value": "ID groupe : {groupID}",
     "group-name": "Nom du groupe",
     "group-not-found": "Groupe non trouvé",
+    "group-token": "Jeton de groupe",
     "group-with-value": "Groupe : {groupID}",
     "groups": "Groupes",
     "manage-groups": "Gérer les groupes",
@@ -242,6 +251,7 @@
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
     "report": "Rapport",
+    "report-with-id": "Identifiant du rapport : {id}",
     "group-management": "Gestion des groupes",
     "admin-group-management": "Administration des groupes",
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
@@ -249,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Créer un nouveau menu",
+    "update-this-meal-plan": "Mettre à jour ce menu",
     "dinner-this-week": "Au menu cette semaine",
     "dinner-today": "Menu du jour",
     "dinner-tonight": "AU MENU CE SOIR",
@@ -345,7 +356,11 @@
     "recipe-1": "Recette 1",
     "recipe-2": "Recette 2",
     "paprika-text": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
-    "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation."
+    "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie peut importer des recettes depuis Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Ajouter en masse",
@@ -456,9 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "Format AAAA-MM-JJ",
     "add-to-list": "Ajouter à la liste",
     "add-to-plan": "Ajouter au menu",
+    "add-to-timeline": "Ajouter à l’historique",
     "recipe-added-to-list": "Recette ajoutée à la liste",
+    "recipes-added-to-list": "Recettes ajoutées à la liste",
+    "successfully-added-to-list": "Ajouté à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée au menu",
+    "failed-to-add-recipes-to-list": "Impossible d’ajouter la recette à la liste",
     "failed-to-add-recipe-to-mealplan": "Échec de l’ajout de la recette au menu",
+    "failed-to-add-to-list": "Ajout dans la liste en échec",
     "yield": "Nombre de portions",
     "quantity": "Quantité",
     "choose-unit": "Choisissez une unité",
@@ -479,6 +499,13 @@
     "increase-scale-label": "Augmenter l’échelle de 1",
     "locked": "Verrouillé",
     "public-link": "Lien public",
+    "timer": {
+      "kitchen-timer": "Minuteur",
+      "start-timer": "Démarrer le minuteur",
+      "pause-timer": "Mettre en pause le minuteur",
+      "resume-timer": "Reprendre le minuteur",
+      "stop-timer": "Arrêter le minuteur"
+    },
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
     "timeline-is-empty": "Pas encore d’historique. Essayez de cuisiner cette recette !",
@@ -488,10 +515,11 @@
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
     "last-made-date": "Cuisiné le {date}",
-    "api-extras-description": "Les extras de recette sont une caractéristique clé de l'API Mealie. Ils vous permettent de créer des paires clé/valeur json personnalisées dans une recette à référencer depuis des applications externes. Vous pouvez utiliser ces clés pour stocker des informations utiles à l'automatisation ou des messages personnalisés à relayer vers l'appareil souhaité.",
+    "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
+    "drop-image": "Déposer l'image",
     "enable-ingredient-amounts-to-use-this-feature": "Activez les quantités d'ingrédients pour utiliser cette fonctionnalité",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Les recettes avec des unités ou des aliments définis ne peuvent pas être analysées.",
     "parse-ingredients": "Analyser les ingrédients",
@@ -509,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Les noms de nouvelles recettes doivent être uniques",
     "scrape-recipe": "Récupérer une recette",
     "scrape-recipe-description": "Récupérer une recette par URL. Fournissez l'URL de la page que vous voulez récupérer, et Mealie essaiera d'en extraire la recette pour l'ajouter à votre collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
+    "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
     "stay-in-edit-mode": "Rester en mode édition",
     "import-from-zip": "Importer depuis un zip",
@@ -529,7 +559,10 @@
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
-    "upload-image": "Envoyer une image"
+    "upload-image": "Envoyer une image",
+    "screen-awake": "Garder l’écran allumé",
+    "remove-image": "Supprimer l’image",
+    "nextStep": "Étape suivante"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -538,8 +571,8 @@
     "include": "Inclure",
     "max-results": "Résultats max",
     "or": "Ou",
-    "has-any": "A n'importe quel",
-    "has-all": "A tout",
+    "has-any": "Requiert au moins",
+    "has-all": "Requiert tout",
     "results": "Résultats",
     "search": "Rechercher",
     "search-mealie": "Rechercher dans Mealie (appuyez sur /)",
@@ -547,14 +580,17 @@
     "tag-filter": "Filtre par mots-clés",
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
-    "auto-search": "Recherche automatique"
+    "auto-search": "Recherche automatique",
+    "no-results": "Aucun résultat trouvé"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
     "admin-settings": "Paramètres d’administration",
     "backup": {
+      "backup-created": "Sauvegarde créée avec succès",
       "backup-created-at-response-export_path": "Sauvegarde créée dans {path}",
       "backup-deleted": "Sauvegarde supprimée",
+      "restore-success": "Restauration réussie",
       "backup-tag": "Tag de la sauvegarde",
       "create-heading": "Créer une sauvegarde",
       "delete-backup": "Supprimer la sauvegarde",
@@ -564,7 +600,6 @@
       "partial-backup": "Sauvegarde partielle",
       "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
       "experimental-description": "Sauvegarde une photo complète de la base de données et du répertoire de données du site. Cela inclut toutes les données et ne peut pas être configuré pour exclure des sous-ensembles de données. C'est un peu comme une photo de Mealie à un instant précis. Actuellement, {not-crossed-version} (les migrations de données ne sont pas effectuées automatiquement). Il s'agit d'un moyen indépendant de la base de données pour exporter et importer des données ou de sauvegarder le site vers un emplacement externe.",
-      "not-crossed-version": "ce mécanisme de sauvegarde dépend de -a version de Mealie et ne peut donc pas être utilisé pour migrer des données entre les versions",
       "backup-restore": "Restaurer la sauvegarde",
       "back-restore-description": "La restauration de cette sauvegarde écrasera toutes les données actuelles dans votre base de données et dans le répertoire de données et les remplacera par le contenu de cette sauvegarde. {cannot-be-undone} Si la restauration est réussie, vous serez déconnecté.",
       "cannot-be-undone": "Cette action ne peut pas être annulée - à utiliser avec prudence.",
@@ -664,11 +699,13 @@
     "configuration": "Paramètres",
     "docker-volume": "Volume Docker",
     "docker-volume-help": "Mealie exige que le conteneur frontend et le backend partagent le même volume docker ou le même stockage. Cela garantit que le conteneur frontend peut accéder correctement aux images et aux ressources stockées sur le disque.",
-    "volumes-are-misconfigured": "Les volumes sont mal configurés",
+    "volumes-are-misconfigured": "Les volumes sont mal configurés.",
     "volumes-are-configured-correctly": "Les volumes sont configurés correctement.",
     "status-unknown-try-running-a-validation": "Statut inconnu. Essayez de lancer une validation.",
     "validate": "Valider",
     "email-configuration-status": "État de la configuration e-mail",
+    "email-configured": "E-mail configuré",
+    "email-test-results": "Résultats des tests e-mail",
     "ready": "Prêt",
     "not-ready": "Pas prêt - Vérifier les variables d'environnement",
     "succeeded": "Réussite",
@@ -759,7 +796,8 @@
     "tags": "Mots-clés",
     "untagged-count": "{count} sans mot-clés",
     "create-a-tag": "Créer un mot-clé",
-    "tag-name": "Mot-clé"
+    "tag-name": "Mot-clé",
+    "tag": "Étiquette"
   },
   "tool": {
     "tools": "Ustensiles",
@@ -768,7 +806,8 @@
     "tool-name": "Nom de l’ustensile",
     "create-new-tool": "Créer un nouvel ustensile",
     "on-hand-checkbox-label": "Afficher comme disponible (coché)",
-    "required-tools": "Ustensiles nécessaires"
+    "required-tools": "Ustensiles nécessaires",
+    "tool": "Ustensile"
   },
   "user": {
     "admin": "Administrateur",
@@ -803,6 +842,7 @@
     "password-updated": "Mot de passe mis à jour",
     "password": "Mot de passe",
     "password-strength": "Robustesse du mot de passe : {strength}",
+    "please-enter-password": "Veuillez entrer votre nouveau mot de passe.",
     "register": "S’inscrire",
     "reset-password": "Réinitialiser le mot de passe",
     "sign-in": "Se connecter",
@@ -823,6 +863,7 @@
     "username": "Nom d’utilisateur",
     "users-header": "UTILISATEURS",
     "users": "Utilisateurs",
+    "user-not-found": "Utilisateur introuvable",
     "webhook-time": "Heure du Webhook",
     "webhooks-enabled": "Webhooks activés",
     "you-are-not-allowed-to-create-a-user": "Vous n’avez pas le droit de créer un utilisateur",
@@ -845,6 +886,7 @@
     "user-management": "Gestion des utilisateurs",
     "reset-locked-users": "Réinitialiser les utilisateurs verrouillés",
     "admin-user-creation": "Création d'un utilisateur admin",
+    "admin-user-management": "Administration des utilisateurs",
     "user-details": "Détails de l'utilisateur",
     "user-name": "Nom d'utilisateur",
     "authentication-method": "Méthode d'authentification",
@@ -854,7 +896,12 @@
     "user-can-invite-other-to-group": "L'utilisateur peut inviter quelqu'un au groupe",
     "user-can-manage-group": "L'utilisateur peut gérer le groupe",
     "user-can-organize-group-data": "L'utilisateur peut organiser des données de groupe",
-    "enable-advanced-features": "Activer les fonctions avancées"
+    "enable-advanced-features": "Activer les fonctions avancées",
+    "it-looks-like-this-is-your-first-time-logging-in": "Il semble que ce soit votre première connexion.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela ? Assurez-vous de changer votre adresse e-mail dans vos paramètres d'utilisateur !",
+    "forgot-password": "Mot de passe oublié",
+    "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
+    "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte."
   },
   "language-dialog": {
     "translated": "traduit",
@@ -875,7 +922,9 @@
       "create-food": "Créer un aliment",
       "food-label": "Étiquette de l'aliment",
       "edit-food": "Modifier Aliment",
-      "food-data": "Données de l'aliment"
+      "food-data": "Données de l'aliment",
+      "example-food-singular": "ex : Oignon",
+      "example-food-plural": "ex : Oignons"
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",
@@ -886,13 +935,18 @@
       "merging-unit-into-unit": "Fusion de {0} dans {1}",
       "create-unit": "Créer une unité",
       "abbreviation": "Abréviation",
+      "plural-abbreviation": "Abréviation au pluriel",
       "description": "Description",
       "display-as-fraction": "Afficher sous forme de fraction",
       "use-abbreviation": "Utiliser l'abréviation",
       "edit-unit": "Modifier l'unité",
       "unit-data": "Données de l'unité",
       "use-abbv": "Utiliser abr.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex : Cuillère à soupe",
+      "example-unit-plural": "ex : Cuillères à soupe",
+      "example-unit-abbreviation-singular": "ex : CàS",
+      "example-unit-abbreviation-plural": "ex : CàS"
     },
     "labels": {
       "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
@@ -921,6 +975,8 @@
       "delete-recipes": "Supprimer les recettes",
       "source-unit-will-be-deleted": "L'unité source sera supprimée"
     },
+    "create-alias": "Créer un alias",
+    "manage-aliases": "Gérer les alias",
     "seed-data": "Initialiser les données",
     "seed": "Initialiser",
     "data-management": "Gestion des données",
@@ -928,10 +984,26 @@
     "select-data": "Sélectionner les données",
     "select-language": "Sélectionnez une langue",
     "columns": "Colonnes",
-    "combine": "Combiner"
+    "combine": "Combiner",
+    "categories": {
+      "edit-category": "Modifier la catégorie",
+      "new-category": "Nouvelle catégorie",
+      "category-data": "Données de catégorie"
+    },
+    "tags": {
+      "new-tag": "Nouveau mot-clé",
+      "edit-tag": "Modifier le mot-clé",
+      "tag-data": "Données du mot-clé"
+    },
+    "tools": {
+      "new-tool": "Nouvel ustensile",
+      "edit-tool": "Modifier l'ustensile",
+      "tool-data": "Données de l'ustensile"
+    }
   },
   "user-registration": {
     "user-registration": "Inscription d’utilisateur",
+    "registration-success": "Inscription réussie",
     "join-a-group": "Rejoindre un groupe",
     "create-a-new-group": "Créer un nouveau groupe",
     "provide-registration-token-description": "Veuillez fournir le jeton d’enregistrement associé au groupe que vous souhaitez rejoindre. Vous devrez l’obtenir auprès d’un membre existant du groupe.",
@@ -978,6 +1050,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Éditeur OCR",
+    "toolbar": "Barre d’outils",
     "selection-mode": "Mode de sélection",
     "pan-and-zoom-picture": "Déplacer et zoomer dans l’image",
     "split-text": "Découper le texte",
@@ -985,6 +1058,8 @@
     "split-by-block": "Séparer par bloc de texte",
     "flatten": "Aplatir quel que soit le formatage original",
     "help": {
+      "help": "Aide",
+      "mouse-modes": "Modes de souris",
       "selection-mode": "Mode de sélection (Par défaut)",
       "selection-mode-desc": "Le mode de sélection est le mode principal qui peut être utilisé pour saisir des données :",
       "selection-mode-steps": {
@@ -1060,6 +1135,7 @@
     "welcome-user": "👋 Bienvenue, {0}",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
     "get-invite-link": "Obtenir un lien d'invitation",
+    "get-public-link": "Voir le lien public",
     "account-summary": "Aperçu du compte",
     "account-summary-description": "Voici un résumé des informations de votre groupe",
     "group-statistics": "Statistiques du groupe",
@@ -1110,6 +1186,8 @@
     "require-all-tags": "Nécessite tous les mots-clés",
     "require-all-tools": "Nécessite tous les ustensiles",
     "cookbook-name": "Nom du livre de recettes",
-    "cookbook-with-name": "Livre de recettes {0}"
+    "cookbook-with-name": "Livre de recettes {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

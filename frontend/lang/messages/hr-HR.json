@@ -76,7 +76,8 @@
     "cookbook-events": "Događaji Zbirke recepata",
     "tag-events": "Događaji Oznaka",
     "category-events": "Događaji Kategorija",
-    "when-a-new-user-joins-your-group": "Kada se novi korisnik pridruži vašoj grupi"
+    "when-a-new-user-joins-your-group": "Kada se novi korisnik pridruži vašoj grupi",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Odustani",
@@ -113,7 +114,10 @@
     "json": "JSON",
     "keyword": "Ključna riječ",
     "link-copied": "Poveznica kopirana",
+    "loading": "Loading",
     "loading-events": "Učitavanje događaja",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Učitavanje Recepata",
     "message": "Poruka",
     "monday": "Ponedjeljak",
@@ -124,6 +128,7 @@
     "no-recipe-found": "Nije Pronađen Recept",
     "ok": "OK",
     "options": "Opcije:",
+    "plural-name": "Plural Name",
     "print": "Ispiši",
     "print-preferences": "Postavke ispisa",
     "random": "Nasumično",
@@ -192,7 +197,10 @@
     "export-all": "Izvezi Sve",
     "refresh": "Osvježi",
     "upload-file": "Prenesi Datoteku",
-    "created-on-date": "Kreirano dana: {0}"
+    "created-on-date": "Kreirano dana: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -207,6 +215,7 @@
     "group-id-with-value": "ID grupe: {groupID}",
     "group-name": "Naziv Grupe",
     "group-not-found": "Grupa nije pronađena",
+    "group-token": "Group Token",
     "group-with-value": "Grupa: {groupID}",
     "groups": "Grupe",
     "manage-groups": "Upravljaj Grupama",
@@ -242,6 +251,7 @@
     "general-preferences": "Opće postavke",
     "group-recipe-preferences": "Postavke Recepata Grupe",
     "report": "Izvješće",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Upravljanje Grupom",
     "admin-group-management": "Upravljanje Grupom od strane Administratora",
     "admin-group-management-text": "Promjene u ovoj grupi će se odmah odraziti.",
@@ -249,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Kreirajte Novi Plan Obroka",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večera Ove Sedmice",
     "dinner-today": "Večera Danas",
     "dinner-tonight": "VEČERA NOĆAS",
@@ -296,7 +307,7 @@
     "for-type-meal-types": "za {0} vrste obroka",
     "meal-plan-rules": "Pravila Plana Obroka",
     "new-rule": "Novo Pravilo",
-    "meal-plan-rules-description": "Možete kreirati pravila za automatski odabir recepata za vaš plan obroka. Ta pravila koristi server kako bi odredio slučajni skup recepata za odabir prilikom kreiranja plana obroka. Napomena: Ako pravila imaju ista ograničenja za dane/vrste, kategorije pravila će biti spojene. U praksi, nije potrebno stvarati duplicirana pravila, iako je to moguće.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Prilikom stvaranja novog pravila za plan obroka možete ograničiti primjenu pravila na određeni dan u tjednu i/ili određenu vrstu obroka. Da biste primijenili pravilo na sve dane ili sve vrste obroka, možete postaviti pravilo na \"Bilo koji\" (\"Any\"), što će ga primijeniti na sve moguće vrijednosti za dan i/ili vrstu obroka.",
     "recipe-rules": "Pravila Recepata",
     "applies-to-all-days": "Primjeni na sve dane",
@@ -345,7 +356,11 @@
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie može uvesti recepte iz aplikacije Paprika. Izvezite svoje recepte iz Paprike, preimenujte ekstenziju izvoza u .zip i učitajte je u nastavku.",
-    "mealie-text": "Mealie može uvesti recepte iz Mealie aplikacije iz verzije prije v1.0. Izvezite svoje recepte iz starog primjerka i učitajte zip datoteku u nastavku. Napomena: Samo recepti mogu biti uvezeni iz izvoza."
+    "mealie-text": "Mealie može uvesti recepte iz Mealie aplikacije iz verzije prije v1.0. Izvezite svoje recepte iz starog primjerka i učitajte zip datoteku u nastavku. Napomena: Samo recepti mogu biti uvezeni iz izvoza.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Dodajte više recepata odjednom",
@@ -456,9 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Dodaj na Popis",
     "add-to-plan": "Dodaj u Plan",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept je dodan na popis",
+    "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recept je dodan u Plan",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Konačna Količina",
     "quantity": "Količina",
     "choose-unit": "Odaberi Jedinicu",
@@ -479,6 +499,13 @@
     "increase-scale-label": "Povećaj skaliranje za 1",
     "locked": "Zaključano",
     "public-link": "Javni Link",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Uredi Događaj Vremenske Crte",
     "timeline": "Vremenska Crta",
     "timeline-is-empty": "Još nema ništa na vremenskoj crti. Pokušajte napraviti ovaj recept!",
@@ -488,10 +515,11 @@
     "how-did-it-turn-out": "Kako je ispalo?",
     "user-made-this": "{user} je napravio/la ovo",
     "last-made-date": "Zadnji put napravljeno {date}",
-    "api-extras-description": "Dodatci recepata su ključna značajka Mealie API-ja. Omogućuju vam stvaranje prilagođenih JSON ključ/vrijednost parova unutar recepta kako biste ih mogli koristiti iz aplikacija trećih strana. Možete koristiti ove ključeve kako biste sadržavali informacije koje će pokrenuti automatizaciju ili prilagođene poruke koje će biti prenesene na željeni uređaj.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Ključ poruke",
     "parse": "Razluči (parsiraj)",
     "attach-images-hint": "Priložite slike povlačenjem i ispuštanjem u uređivaču",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Omogući korištenje količina sastojaka za ovu značajku",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepti s definiranim jedinicama ili namirnicama ne mogu se razlučiti (parsirati).",
     "parse-ingredients": "Razluči (parsiraj) sastojke",
@@ -509,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Naziv novog recepta mora imati jedinstveno ime",
     "scrape-recipe": "Prikupi (skraperaj) recept",
     "scrape-recipe-description": "Prikupi (skraperaj) recept putem URL-a. Priložite URL web stranice s koje želite prikupiti recept, a Mealie će pokušati prikupiti recept s te stranice i dodati ga u vašu kolekciju.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "import-from-zip": "Uvoz iz Zip-a",
@@ -529,7 +559,10 @@
     "tree-view": "Prikaz Stabla",
     "recipe-yield": "Konačna Količina Recepta",
     "unit": "Jedinica",
-    "upload-image": "Učitavanje Slike"
+    "upload-image": "Učitavanje Slike",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",
@@ -547,14 +580,17 @@
     "tag-filter": "Filter Oznaka",
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
-    "auto-search": "Auto Pretraga"
+    "auto-search": "Auto Pretraga",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Dodaj Novu Temu",
     "admin-settings": "Admin Postavke",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Sigurnosna Kopija Kreirana na lokaciji {path}",
       "backup-deleted": "Sigurnosna kopija izbrisana",
+      "restore-success": "Restore successful",
       "backup-tag": "Sigurnosna kopija Oznake",
       "create-heading": "Kreiraj sigurnosnu kopiju",
       "delete-backup": "Izbriši sigurnosnu kopiju",
@@ -564,7 +600,6 @@
       "partial-backup": "Djelomična sigurnosna kopija",
       "unable-to-delete-backup": "Ne Mogu Obrisati Sigurnosnu Kopiju.",
       "experimental-description": "Sigurnosna kopija predstavlja snimak baze podataka i direktorija podataka web stranice. To uključuje sve podatke i ne može se postaviti da isključuje podskupove podataka. Možete zamisliti sigurnosnu kopiju kao snimak Mealieja u određenom trenutku. Trenutno, verzije {not-crossed-version} (migracija podataka se ne izvode automatski). Sigurnosne kopije služe kao način izvoza i uvoza podataka ili za sigurnosno kopiranje web mjesta na vanjsku lokaciju.",
-      "not-crossed-version": "ovaj mehanizam sigurnosne kopije nije kompatibilan između verzija i stoga se ne može koristiti za migraciju podataka između verzija",
       "backup-restore": "Sigurnosno kopiranje/vraćanje",
       "back-restore-description": "Vraćanje ove sigurnosne kopije će prepisati sve trenutne podatke u vašoj bazi podataka i direktoriju podataka i zamijeniti ih sadržajem ove sigurnosne kopije. Ova radnja je {ne-može-se-povratiti}. Ako se vraćanje uspješno izvrši, bit ćete odjavljeni iz sustava.",
       "cannot-be-undone": "Ova radnja ne može se poništiti - koristite je oprezno.",
@@ -664,11 +699,13 @@
     "configuration": "Konfiguracija",
     "docker-volume": "Docker Volumen",
     "docker-volume-help": "Mealie zahtijeva da frontend kontejner i backend dijele isti Docker volumen ili pohranu. To osigurava da frontend kontejner pravilno pristupa slikama i resursima pohranjenim na disku.",
-    "volumes-are-misconfigured": "Volumeni su neispravno konfigurirani",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumeni su ispravno konfigurirani.",
     "status-unknown-try-running-a-validation": "Status nepoznat. Pokušajte pokrenuti provjeru valjanosti.",
     "validate": "Valjanost",
     "email-configuration-status": "Status E-mail Konfiguracije",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Spremno",
     "not-ready": "Nije spremno - Provjerite Okolišne Varijable ili eng.: \"Environmental Variables\"",
     "succeeded": "Uspijelo je",
@@ -759,7 +796,8 @@
     "tags": "Oznake",
     "untagged-count": "Neoznačeno {count}",
     "create-a-tag": "Kreiraj Oznaku",
-    "tag-name": "Naziv Oznake"
+    "tag-name": "Naziv Oznake",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Alati",
@@ -768,7 +806,8 @@
     "tool-name": "Naziv Alata",
     "create-new-tool": "Kreiraj Novi Alat",
     "on-hand-checkbox-label": "Prikaži Alat Dostupnim (Označeno)",
-    "required-tools": "Potrebni Alati"
+    "required-tools": "Potrebni Alati",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",
@@ -803,6 +842,7 @@
     "password-updated": "Zaporka je ažurirana",
     "password": "Zaporka",
     "password-strength": "Snaga zaporke je {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registracija",
     "reset-password": "Resetiraj Zaporku",
     "sign-in": "Prijava",
@@ -823,6 +863,7 @@
     "username": "Korisničko ime",
     "users-header": "KORISNICI",
     "users": "Korisnici",
+    "user-not-found": "User not found",
     "webhook-time": "Vrijeme Web-dojavnika",
     "webhooks-enabled": "Web-dojavnik Omogućen",
     "you-are-not-allowed-to-create-a-user": "Nije Vam dopušteno kreiranje novog korisnika",
@@ -845,6 +886,7 @@
     "user-management": "Upravljanje Korisnicima",
     "reset-locked-users": "Poništi Zaključane Korisnike",
     "admin-user-creation": "Kreiranje Administratorskog Korisnika",
+    "admin-user-management": "Admin User Management",
     "user-details": "Podaci o Korisniku",
     "user-name": "Korisničko Ime",
     "authentication-method": "Metoda provjere Autentičnosti",
@@ -854,7 +896,12 @@
     "user-can-invite-other-to-group": "Korisnik može pozvati druge u grupu",
     "user-can-manage-group": "Korisnik može upravljati grupom",
     "user-can-organize-group-data": "Korisnik može organizirati podatke grupe",
-    "enable-advanced-features": "Omogućite napredne značajke"
+    "enable-advanced-features": "Omogućite napredne značajke",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -875,7 +922,9 @@
       "create-food": "Kreiraj Namirnicu",
       "food-label": "Prehrambena oznaka",
       "edit-food": "Uredi Namirnicu",
-      "food-data": "Podaci o Namirnici"
+      "food-data": "Podaci o Namirnici",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Popunite bazu podataka uobičajenim jedinicama na temelju vašeg lokalnog jezika.",
@@ -886,13 +935,18 @@
       "merging-unit-into-unit": "Spajanje {0} u {1}",
       "create-unit": "Kreiraj Jedinicu",
       "abbreviation": "Oznaka Jedinice",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Opis",
       "display-as-fraction": "Prikaži kao razlomak",
       "use-abbreviation": "Koristi oznaku Jedinice",
       "edit-unit": "Uredi Jedinicu",
       "unit-data": "Podaci Jedinice",
       "use-abbv": "Koristi Skraćenu oznaku.",
-      "fraction": "Razlomak"
+      "fraction": "Razlomak",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Popunite bazu podataka uobičajenim oznakama na temelju vašeg lokalnog jezika.",
@@ -921,6 +975,8 @@
       "delete-recipes": "Obriši Recepte",
       "source-unit-will-be-deleted": "Izvorna jedinica će biti izbrisana"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Unesi Podatke",
     "seed": "Seed",
     "data-management": "Upravljanje Podacima",
@@ -928,10 +984,26 @@
     "select-data": "Označite Podatke",
     "select-language": "Odaberite Jezik",
     "columns": "Stupci",
-    "combine": "Kombiniraj"
+    "combine": "Kombiniraj",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registracija Korisnika",
+    "registration-success": "Registration Success",
     "join-a-group": "Pridružite se Grupi",
     "create-a-new-group": "Kreiraj Novu Grupu",
     "provide-registration-token-description": "Molim vas da pružite registracijski token povezan s grupom kojoj želite pristupiti. Registracijski token možete dobiti od postojećeg člana grupe.",
@@ -978,6 +1050,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor količina",
+    "toolbar": "Toolbar",
     "selection-mode": "Odabrani način rada",
     "pan-and-zoom-picture": "Pomakni i zumiraj sliku",
     "split-text": "Razdvoji tekst",
@@ -985,6 +1058,8 @@
     "split-by-block": "Razdvoji prema bloku teksta",
     "flatten": "Izravnaj bez obzira na izvornu formatiranost",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Način odabira (zadano)",
       "selection-mode-desc": "Način odabira je glavni način koji se može koristiti za unos podataka:",
       "selection-mode-steps": {
@@ -1060,6 +1135,7 @@
     "welcome-user": "👋 Dobrodošli, {0}",
     "description": "Upravljajte svojim profilom, receptima i postavkama grupa.",
     "get-invite-link": "Zatražite Poveznicu Pozivnice",
+    "get-public-link": "Get Public Link",
     "account-summary": "Zbirni Prikaz Računa",
     "account-summary-description": "Evo sažetka informacija o vašoj grupi",
     "group-statistics": "Statistika Grupe",
@@ -1110,6 +1186,8 @@
     "require-all-tags": "Zahtijevaj sve oznake",
     "require-all-tools": "Zahtijevaj sve Alate",
     "cookbook-name": "Naziv Zbirke recepata",
-    "cookbook-with-name": "ZbirkaRecepata {0}"
+    "cookbook-with-name": "ZbirkaRecepata {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

@@ -1,3 +1,4 @@
+import os
 from collections.abc import Callable
 from pathlib import Path
 from time import sleep
@@ -10,6 +11,8 @@ from alembic.runtime import migration
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
+from mealie.db.fixes.fix_group_with_no_name import fix_group_with_no_name
+from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
@@ -85,7 +88,12 @@ def main():
             if max_retry == 0:
                 raise ConnectionError("Database connection failed - exiting application.")
 
-        alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
+        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(PROJECT_DIR / "alembic.ini"))
+
+        if not os.path.isfile(alembic_cfg_path):
+            raise Exception("Provided alembic config path doesn't exist")
+
+        alembic_cfg = Config(alembic_cfg_path)
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
         else:
@@ -96,14 +104,15 @@ def main():
             session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
         db = get_repositories(session)
+        safe_try(lambda: fix_migration_data(session))
+        safe_try(lambda: fix_slug_food_names(db))
+        safe_try(lambda: fix_group_with_no_name(session))
 
         if db.users.get_all():
             logger.debug("Database exists")
         else:
             logger.info("Database contains no users, initializing...")
             init_db(db)
-
-        safe_try(lambda: fix_slug_food_names(db))
 
 
 if __name__ == "__main__":

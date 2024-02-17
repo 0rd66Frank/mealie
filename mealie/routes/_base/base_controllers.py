@@ -2,11 +2,11 @@ from abc import ABC
 from logging import Logger
 
 from fastapi import Depends
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.core.dependencies.dependencies import get_admin_user, get_current_user, get_integration_id
+from mealie.core.dependencies.dependencies import get_admin_user, get_current_user, get_integration_id, get_public_group
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
@@ -25,10 +25,10 @@ class _BaseController(ABC):
     session: Session = Depends(generate_session)
     translator: Translator = Depends(local_provider)
 
-    _repos: AllRepositories | None
-    _logger: Logger | None
-    _settings: AppSettings | None
-    _folders: AppDirectories | None
+    _repos: AllRepositories | None = None
+    _logger: Logger | None = None
+    _settings: AppSettings | None = None
+    _folders: AppDirectories | None = None
 
     @property
     def t(self):
@@ -58,8 +58,7 @@ class _BaseController(ABC):
             self._folders = get_app_dirs()
         return self._folders
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class BasePublicController(_BaseController):
@@ -70,6 +69,16 @@ class BasePublicController(_BaseController):
     """
 
     ...
+
+
+class BasePublicExploreController(BasePublicController):
+    """
+    This is a public class for all User restricted controllers in the API.
+    It includes the common SharedDependencies and some common methods used
+    by all Admin controllers.
+    """
+
+    group: GroupInDB = Depends(get_public_group)
 
 
 class BaseUserController(_BaseController):

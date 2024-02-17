@@ -52,7 +52,6 @@
         show-print
         :menu-top="false"
         :name="recipe.name"
-        :group-id="recipe.groupId"
         :slug="recipe.slug"
         :menu-icon="$globals.icons.dotsVertical"
         fab
@@ -71,7 +70,6 @@
           print: true,
           printPreferences: true,
           share: loggedIn,
-          publicUrl: recipe.settings && loggedIn ? recipe.settings.public : false,
         }"
         @print="$emit('print')"
       />
@@ -104,7 +102,6 @@ const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
-const OCR_EVENT = "ocr";
 
 export default defineComponent({
   components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimerMenu, RecipeTimelineBadge },
@@ -141,12 +138,8 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    showOcrButton: {
-      type: Boolean,
-      default: false,
-    },
   },
-  setup(props, context) {
+  setup(_, context) {
     const deleteDialog = ref(false);
 
     const { i18n, $globals } = useContext();
@@ -176,15 +169,6 @@ export default defineComponent({
         color: "success",
       },
     ];
-
-    if (props.showOcrButton) {
-      editorButtons.splice(2, 0, {
-        text: i18n.t("ocr-editor.ocr-editor"),
-        icon: $globals.icons.eye,
-        event: OCR_EVENT,
-        color: "accent",
-      });
-    }
 
     function emitHandler(event: string) {
       switch (event) {

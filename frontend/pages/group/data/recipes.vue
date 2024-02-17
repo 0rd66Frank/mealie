@@ -121,7 +121,7 @@
             <template #icon>
               {{ $globals.icons.database }}
             </template>
-            Import
+            {{ $t('general.import') }}
           </BaseButton>
           <BaseButton
             color="info"
@@ -140,7 +140,7 @@
     </section>
 
     <section class="mt-10">
-      <!-- Downloads Data Table -->
+      <!-- Data Table -->
       <BaseCardSectionTitle :icon="$globals.icons.database" section :title="$tc('data-pages.recipes.data-exports')">
         {{ $t('data-pages.recipes.data-exports-description') }}
       </BaseCardSectionTitle>
@@ -223,7 +223,7 @@ export default defineComponent({
         event: "tag-selected",
       },
       {
-        icon: $globals.icons.tags,
+        icon: $globals.icons.categories,
         text: i18n.tc("data-pages.recipes.categorize"),
         event: "categorize-selected",
       },
@@ -379,7 +379,7 @@ export default defineComponent({
 
       const icons: Record<MODES, string> = {
         [MODES.tag]: $globals.icons.tags,
-        [MODES.category]: $globals.icons.tags,
+        [MODES.category]: $globals.icons.categories,
         [MODES.export]: $globals.icons.database,
         [MODES.delete]: $globals.icons.delete,
         [MODES.updateSettings]: $globals.icons.cog,

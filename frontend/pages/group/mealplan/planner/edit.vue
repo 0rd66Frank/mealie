@@ -3,13 +3,25 @@
     <!-- Create Meal Dialog -->
     <BaseDialog
       v-model="state.dialog"
-      :title="$tc('meal-plan.create-a-new-meal-plan')"
+      :title="$tc(newMeal.existing
+        ? 'meal-plan.update-this-meal-plan'
+        : 'meal-plan.create-a-new-meal-plan'
+      )"
+      :submit-text="$tc(newMeal.existing
+        ? 'general.update'
+        : 'general.create'
+      )"
       color="primary"
       :icon="$globals.icons.foods"
       @submit="
-        actions.createOne(newMeal);
+        if (newMeal.existing) {
+          actions.updateOne(newMeal);
+        } else {
+          actions.createOne(newMeal);
+        }
         resetDialog();
       "
+      @close="resetDialog()"
     >
       <v-card-text>
         <v-menu
@@ -68,7 +80,6 @@
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
-
     <v-row>
       <v-col
         v-for="(plan, index) in mealplans"
@@ -101,7 +112,9 @@
             class="my-1"
             :class="{ handle: $vuetify.breakpoint.smAndUp }"
           >
-            <v-list-item>
+            <v-list-item
+              @click="editMeal(mealplan)"
+            >
               <v-list-item-avatar :rounded="false">
                 <RecipeCardImage
                   v-if="mealplan.recipe"
@@ -210,14 +223,12 @@ import { defineComponent, computed, reactive, ref, watch, onMounted } from "@nux
 import { format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
-import { watchDebounced } from "@vueuse/core";
 import { MealsByDate } from "./types";
 import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
-import { PlanEntryType } from "~/lib/api/types/meal-plan";
+import { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
-import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineComponent({
@@ -292,8 +303,6 @@ export default defineComponent({
       if (dialog.note) {
         newMeal.recipeId = undefined;
       }
-      newMeal.title = "";
-      newMeal.text = "";
     });
 
     const newMeal = reactive({
@@ -302,11 +311,31 @@ export default defineComponent({
       text: "",
       recipeId: undefined as string | undefined,
       entryType: "dinner" as PlanEntryType,
+      existing: false,
+      id: 0,
+      groupId: ""
     });
 
     function openDialog(date: Date) {
       newMeal.date = format(date, "yyyy-MM-dd");
       state.value.dialog = true;
+    }
+
+    function editMeal(mealplan: UpdatePlanEntry) {
+      const { date, title, text, entryType, recipeId, id, groupId } = mealplan;
+      if (!entryType) return;
+
+      newMeal.date = date;
+      newMeal.title = title || "";
+      newMeal.text = text || "";
+      newMeal.recipeId = recipeId;
+      newMeal.entryType = entryType;
+      newMeal.existing = true;
+      newMeal.id = id;
+      newMeal.groupId = groupId;
+
+      state.value.dialog = true;
+      dialog.note = !recipeId;
     }
 
     function resetDialog() {
@@ -315,6 +344,7 @@ export default defineComponent({
       newMeal.text = "";
       newMeal.entryType = "dinner";
       newMeal.recipeId = undefined;
+      newMeal.existing = false;
     }
 
     async function randomMeal(date: Date, type: PlanEntryType) {
@@ -333,7 +363,7 @@ export default defineComponent({
 
     const search = useRecipeSearch(api);
     const planTypeOptions = usePlanTypeOptions();
-    
+
     onMounted(async () => {
       await search.trigger();
     });
@@ -348,6 +378,7 @@ export default defineComponent({
       dialog,
       newMeal,
       openDialog,
+      editMeal,
       resetDialog,
       randomMeal,
 

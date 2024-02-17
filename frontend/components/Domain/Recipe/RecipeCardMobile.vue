@@ -4,7 +4,7 @@
       :ripple="false"
       :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
       hover
-      :to="$listeners.selected ? undefined : `/recipe/${slug}`"
+      :to="$listeners.selected ? undefined : recipeRoute"
       @click="$emit('selected')"
     >
       <v-img v-if="vertical" class="rounded-sm">
@@ -37,10 +37,10 @@
           </v-list-item-subtitle>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
-              <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
+              <RecipeFavoriteBadge v-if="isOwnGroup" :slug="slug" show-always />
               <v-rating
                 color="secondary"
-                class="ml-auto"
+                :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
                 background-color="secondary lighten-3"
                 dense
                 length="5"
@@ -48,7 +48,11 @@
                 :value="rating"
               ></v-rating>
               <v-spacer></v-spacer>
+
+              <!-- If we're not logged-in, no items display, so we hide this menu -->
+              <!-- We also add padding to the v-rating above to compensate -->
               <RecipeContextMenu
+                v-if="isOwnGroup"
                 :slug="slug"
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
@@ -62,7 +66,6 @@
                   print: false,
                   printPreferences: false,
                   share: true,
-                  publicUrl: false,
                 }"
                 @deleted="$emit('delete', slug)"
               />
@@ -76,10 +79,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
   components: {
@@ -126,14 +130,19 @@ export default defineComponent({
       default: false,
     },
   },
-  setup() {
+  setup(props) {
     const { $auth } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
+    const { isOwnGroup } = useLoggedInState();
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
+    const recipeRoute = computed<string>(() => {
+      return `/g/${groupSlug.value}/r/${props.slug}`;
     });
 
     return {
-      loggedIn,
+      isOwnGroup,
+      recipeRoute,
     };
   },
 });
@@ -167,8 +176,8 @@ export default defineComponent({
   align-self: start !important;
 }
 
-.flat {
+.flat, .theme--dark .flat {
   box-shadow: none!important;
-  background-color: transparent;
+  background-color: transparent!important;
 }
 </style>

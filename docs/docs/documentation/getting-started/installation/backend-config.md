@@ -9,13 +9,12 @@
 | PUID          |          911          | UserID permissions between host OS and container                                    |
 | PGID          |          911          | GroupID permissions between host OS and container                                   |
 | DEFAULT_GROUP |         Home          | The default group for users                                                         |
-| DEFAULT_EMAIL |  changeme@email.com   | The default username for the superuser                                              |
 | BASE_URL      | http://localhost:8080 | Used for Notifications                                                              |
 | TOKEN_TIME    |          48           | The time in hours that a login/auth token is valid                                  |
 | API_PORT      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
 | API_DOCS      |         True          | Turns on/off access to the API documentation locally.                               |
 | TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
-| ALLOW_SIGNUP  |         true          | Allow user sign-up without token (should match frontend env)                        |
+| ALLOW_SIGNUP  |         true          | Allow user sign-up without token                                                    |
 
 ### Security
 
@@ -55,8 +54,8 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | ---------------- | :-----: | --------------------------------------------------------------------------------------------------------------------------------- |
 | WEB_GUNICORN     |  false  | Enables Gunicorn to manage Uvicorn web for multiple works                                                                         |
 | WORKERS_PER_CORE |    1    | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
-| MAX_WORKERS      |    1    | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
-| WEB_CONCURRENCY  |    1    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
+| MAX_WORKERS      |  None   | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
+| WEB_CONCURRENCY  |    2    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
 
 ### LDAP
 
@@ -75,3 +74,29 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_ID_ATTRIBUTE    |   uid   | The LDAP attribute that maps to the user's id                                                                                       |
 | LDAP_NAME_ATTRIBUTE  |  name   | The LDAP attribute that maps to the user's name                                                                                     |
 | LDAP_MAIL_ATTRIBUTE  |  mail   | The LDAP attribute that maps to the user's email                                                                                    |
+
+### Themeing
+
+Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
+
+| Variables             | Default | Description                 |
+| --------------------- | :-----: | --------------------------- |
+| THEME_LIGHT_PRIMARY   | #E58325 | Light Theme Config Variable |
+| THEME_LIGHT_ACCENT    | #007A99 | Light Theme Config Variable |
+| THEME_LIGHT_SECONDARY | #973542 | Light Theme Config Variable |
+| THEME_LIGHT_SUCCESS   | #43A047 | Light Theme Config Variable |
+| THEME_LIGHT_INFO      | #1976D2 | Light Theme Config Variable |
+| THEME_LIGHT_WARNING   | #FF6D00 | Light Theme Config Variable |
+| THEME_LIGHT_ERROR     | #EF5350 | Light Theme Config Variable |
+| THEME_DARK_PRIMARY    | #E58325 | Dark Theme Config Variable  |
+| THEME_DARK_ACCENT     | #007A99 | Dark Theme Config Variable  |
+| THEME_DARK_SECONDARY  | #973542 | Dark Theme Config Variable  |
+| THEME_DARK_SUCCESS    | #43A047 | Dark Theme Config Variable  |
+| THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
+| THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
+| THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+
+
+[workers_per_core]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#workers_per_core
+[max_workers]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#max_workers
+[web_concurrency]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#web_concurrency

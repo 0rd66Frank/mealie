@@ -10,7 +10,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, toRefs } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { RecipeIngredient } from "~/lib/api/types/group";
 import { useParsedIngredientText } from "~/composables/recipes";
 
@@ -54,7 +54,7 @@ export default defineComponent({
 }
 
 .note {
-  line-height: 0.8em;
+  line-height: 1.25em;
   font-size: 0.8em;
   opacity: 0.7;
 }

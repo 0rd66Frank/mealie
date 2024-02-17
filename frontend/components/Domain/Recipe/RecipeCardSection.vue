@@ -126,12 +126,14 @@ import {
   toRefs,
   useAsync,
   useContext,
+  useRoute,
   useRouter,
   watch,
 } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -184,7 +186,8 @@ export default defineComponent({
       shuffle: "shuffle",
     };
 
-    const { $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useContext();
+    const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
       return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
     });
@@ -197,12 +200,15 @@ export default defineComponent({
       sortLoading: false,
     });
 
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
     const router = useRouter();
     function navigateRandom() {
       if (props.recipes.length > 0) {
         const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
         if (recipe.slug !== undefined) {
-          router.push(`/recipe/${recipe.slug}`);
+          router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
         }
       }
     }
@@ -213,7 +219,7 @@ export default defineComponent({
     const ready = ref(false);
     const loading = ref(false);
 
-    const { fetchMore } = useLazyRecipes();
+    const { fetchMore } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;
@@ -235,31 +241,36 @@ export default defineComponent({
 
     onMounted(async () => {
       if (props.query) {
-        const newRecipes = await fetchRecipes(2);
-
-        // since we doubled the first call, we also need to advance the page
-        page.value = page.value + 1;
-
-        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        await initRecipes();
         ready.value = true;
       }
     });
 
+    let lastQuery: string | undefined;
     watch(
       () => props.query,
       async (newValue: RecipeSearchQuery | undefined) => {
-        if (newValue) {
-          page.value = 1;
-          const newRecipes = await fetchRecipes(2);
-
-          // since we doubled the first call, we also need to advance the page
-          page.value = page.value + 1;
-
-          context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        const newValueString = JSON.stringify(newValue)
+        if (newValue && (!ready.value || lastQuery !== newValueString)) {
+          lastQuery = newValueString;
+          await initRecipes();
           ready.value = true;
         }
       }
     );
+
+    async function initRecipes() {
+      page.value = 1;
+      const newRecipes = await fetchRecipes(2);
+      if (!newRecipes.length) {
+        hasMore.value = false;
+      }
+
+      // since we doubled the first call, we also need to advance the page
+      page.value = page.value + 1;
+
+      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+    }
 
     const infiniteScroll = useThrottleFn(() => {
       useAsync(async () => {

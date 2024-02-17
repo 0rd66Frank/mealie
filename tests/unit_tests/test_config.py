@@ -9,7 +9,6 @@ from mealie.core.settings.settings import AppSettings
 
 def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
-    monkeypatch.setenv("DEFAULT_PASSWORD", "Test Password")
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", "False")
 
@@ -17,7 +16,6 @@ def test_non_default_settings(monkeypatch):
     app_settings = get_app_settings()
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
-    assert app_settings.DEFAULT_PASSWORD == "Test Password"
     assert app_settings.API_PORT == 8000
     assert app_settings.API_DOCS is False
 
@@ -38,6 +36,15 @@ def test_pg_connection_args(monkeypatch):
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
+
+
+def test_pg_connection_url_encode_password(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgres")
+    monkeypatch.setenv("POSTGRES_SERVER", "postgres")
+    monkeypatch.setenv("POSTGRES_PASSWORD", "please,url#encode/this?password")
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+    assert app_settings.DB_URL == "postgresql://mealie:please%2Curl%23encode%2Fthis%3Fpassword@postgres:5432/mealie"
 
 
 @dataclass(slots=True)

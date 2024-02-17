@@ -11,7 +11,7 @@
     "user": {
         "user-updated": "User updated",
         "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
+        "invalid-current-password": "目前密碼無效",
         "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
     "group": {
@@ -22,7 +22,7 @@
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "email-conflict-error": "該電子郵件已被使用"
     },
     "notifications": {
         "generic-created": "{name} was created",
@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} has been updated, {url}",
         "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} has been deleted"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

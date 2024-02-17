@@ -1,7 +1,10 @@
 import secrets
 from pathlib import Path
 
-from pydantic import BaseSettings, NoneStr, validator
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 
@@ -23,9 +26,14 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 
 
 class AppSettings(BaseSettings):
+    theme: Theme = Theme()
+
     PRODUCTION: bool
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
+
+    STATIC_FILES: str = ""
+    """path to static files directory (ex. `mealie/dist`)"""
 
     IS_DEMO: bool = False
     API_PORT: int = 9000
@@ -48,7 +56,8 @@ class AppSettings(BaseSettings):
     SECURITY_USER_LOCKOUT_TIME: int = 24
     "time in hours"
 
-    @validator("BASE_URL")
+    @field_validator("BASE_URL")
+    @classmethod
     def remove_trailing_slash(cls, v: str) -> str:
         if v and v[-1] == "/":
             return v[:-1]
@@ -78,18 +87,27 @@ class AppSettings(BaseSettings):
         return self.DB_PROVIDER.db_url_public if self.DB_PROVIDER else None
 
     DEFAULT_GROUP: str = "Home"
-    DEFAULT_EMAIL: str = "changeme@email.com"
-    DEFAULT_PASSWORD: str = "MyPassword"
+
+    _DEFAULT_EMAIL: str = "changeme@example.com"
+    """
+    This is the default email used for the first user created in the database. This is only used if no users
+    exist in the database. it should no longer be set by end users.
+    """
+    _DEFAULT_PASSWORD: str = "MyPassword"
+    """
+    This is the default password used for the first user created in the database. This is only used if no users
+    exist in the database. it should no longer be set by end users.
+    """
 
     # ===============================================
     # Email Configuration
 
-    SMTP_HOST: str | None
+    SMTP_HOST: str | None = None
     SMTP_PORT: str | None = "587"
     SMTP_FROM_NAME: str | None = "Mealie"
-    SMTP_FROM_EMAIL: str | None
-    SMTP_USER: str | None
-    SMTP_PASSWORD: str | None
+    SMTP_FROM_EMAIL: str | None = None
+    SMTP_USER: str | None = None
+    SMTP_PASSWORD: str | None = None
     SMTP_AUTH_STRATEGY: str | None = "TLS"  # Options: 'TLS', 'SSL', 'NONE'
 
     @property
@@ -106,11 +124,11 @@ class AppSettings(BaseSettings):
 
     @staticmethod
     def validate_smtp(
-        host: str | None,
-        port: str | None,
-        from_name: str | None,
-        from_email: str | None,
-        strategy: str | None,
+        host: str | None = None,
+        port: str | None = None,
+        from_name: str | None = None,
+        from_email: str | None = None,
+        strategy: str | None = None,
         user: str | None = None,
         password: str | None = None,
     ) -> bool:
@@ -127,15 +145,15 @@ class AppSettings(BaseSettings):
     # LDAP Configuration
 
     LDAP_AUTH_ENABLED: bool = False
-    LDAP_SERVER_URL: NoneStr = None
+    LDAP_SERVER_URL: str | None = None
     LDAP_TLS_INSECURE: bool = False
-    LDAP_TLS_CACERTFILE: NoneStr = None
+    LDAP_TLS_CACERTFILE: str | None = None
     LDAP_ENABLE_STARTTLS: bool = False
-    LDAP_BASE_DN: NoneStr = None
-    LDAP_QUERY_BIND: NoneStr = None
-    LDAP_QUERY_PASSWORD: NoneStr = None
-    LDAP_USER_FILTER: NoneStr = None
-    LDAP_ADMIN_FILTER: NoneStr = None
+    LDAP_BASE_DN: str | None = None
+    LDAP_QUERY_BIND: str | None = None
+    LDAP_QUERY_PASSWORD: str | None = None
+    LDAP_USER_FILTER: str | None = None
+    LDAP_ADMIN_FILTER: str | None = None
     LDAP_ID_ATTRIBUTE: str = "uid"
     LDAP_MAIL_ATTRIBUTE: str = "mail"
     LDAP_NAME_ATTRIBUTE: str = "name"
@@ -157,9 +175,7 @@ class AppSettings(BaseSettings):
     # Testing Config
 
     TESTING: bool = False
-
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:

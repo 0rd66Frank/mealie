@@ -4,7 +4,9 @@
       <v-card>
         <v-app-bar dense dark color="primary mb-2">
           <v-icon large left class="mt-1">
-            {{ itemType === Organizer.Tool ? $globals.icons.potSteam : $globals.icons.tags }}
+            {{ itemType === Organizer.Tool ? $globals.icons.potSteam :
+              itemType === Organizer.Category ? $globals.icons.categories :
+              $globals.icons.tags }}
           </v-icon>
 
           <v-toolbar-title class="headline">
@@ -129,8 +131,8 @@ export default defineComponent({
 
     async function select() {
       if (store) {
-        // @ts-ignore - only property really required is the name
-        await store.actions.createOne({ name: state.name });
+        // @ts-expect-error the same state is used for different organizer types, which have different requirements
+        await store.actions.createOne({ ...state });
       }
 
       const newItem = store.items.value.find((item) => item.name === state.name);

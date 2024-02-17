@@ -22,7 +22,7 @@
         "no-entry-found": "La ressource demandée n'a pas été trouvée",
         "integrity-error": "Erreur d'intégrité de la base de données",
         "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
-        "email-conflict-error": "Cette adresse e-mail est déjà utilisée"
+        "email-conflict-error": "Cette adresse courriel est déjà utilisée"
     },
     "notifications": {
         "generic-created": "{name} a été créé",
@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} a été mis à jour, {url}",
         "generic-duplicated": "{name} a été dupliqué",
         "generic-deleted": "{name} a été supprimé"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

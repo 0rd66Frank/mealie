@@ -199,7 +199,7 @@
 
     <v-lazy>
       <div class="d-flex justify-end mt-10">
-        <ButtonLink to="/group/data/labels" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
+        <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
       </div>
     </v-lazy>
   </v-container>
@@ -236,6 +236,7 @@ export default defineComponent({
     ShoppingListItemEditor,
   },
   setup() {
+    const { $auth, i18n } = useContext();
     const preferences = useShoppingListPreferences();
 
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
@@ -247,9 +248,8 @@ export default defineComponent({
     const reorderLabelsDialog = ref(false);
 
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const id = route.value.params.id;
-
-    const { i18n } = useContext();
 
     // ===============================================================
     // Shopping List Actions
@@ -268,6 +268,7 @@ export default defineComponent({
       // only update the list with the new value if we're not loading, to prevent UI jitter
       if (!loadingCounter.value) {
         shoppingList.value = newListValue;
+        sortListItems();
         updateItemsByLabel();
       }
     }
@@ -392,8 +393,8 @@ export default defineComponent({
     };
 
     const contextMenu = [
-      { title: "Delete", action: contextActions.delete },
-      { title: "Ingredient", action: contextActions.setIngredient },
+      { title: i18n.tc("general.delete"), action: contextActions.delete },
+      { title: i18n.tc("recipe.ingredient"), action: contextActions.setIngredient },
     ];
 
     function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {
@@ -472,6 +473,15 @@ export default defineComponent({
     });
 
     const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
+
+    function sortListItems() {
+      if (!shoppingList.value?.listItems?.length) {
+        return;
+      }
+
+      // sort by position ascending, then createdAt descending
+      shoppingList.value.listItems.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1))
+    }
 
     function updateItemsByLabel() {
       const items: { [prop: string]: ShoppingListItemOut[] } = {};
@@ -603,6 +613,7 @@ export default defineComponent({
         });
       }
 
+      sortListItems();
       updateItemsByLabel();
 
       loadingCounter.value += 1;
@@ -656,7 +667,9 @@ export default defineComponent({
       loadingCounter.value += 1;
 
       // make sure it's inserted into the end of the list, which may have been updated
-      createListItemData.value.position = shoppingList.value?.listItems?.length || 1;
+      createListItemData.value.position = shoppingList.value?.listItems?.length
+        ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
+        : 0;
       const { data } = await userApi.shopping.items.createOne(createListItemData.value);
       loadingCounter.value -= 1;
 
@@ -742,6 +755,7 @@ export default defineComponent({
       deleteListItem,
       edit,
       getLabelColor,
+      groupSlug,
       itemsByLabel,
       listItems,
       loadingCounter,

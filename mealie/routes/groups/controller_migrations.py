@@ -16,6 +16,7 @@ from mealie.services.migrations import (
     MealieAlphaMigrator,
     NextcloudMigrator,
     PaprikaMigrator,
+    PlanToEatMigrator,
     TandoorMigrator,
 )
 
@@ -43,6 +44,7 @@ class GroupMigrationController(BaseUserController):
             "user_id": self.user.id,
             "group_id": self.group_id,
             "add_migration_tag": add_migration_tag,
+            "translator": self.translator,
         }
 
         table: dict[SupportedMigrations, type[BaseMigrator]] = {
@@ -52,6 +54,7 @@ class GroupMigrationController(BaseUserController):
             SupportedMigrations.nextcloud: NextcloudMigrator,
             SupportedMigrations.paprika: PaprikaMigrator,
             SupportedMigrations.tandoor: TandoorMigrator,
+            SupportedMigrations.plantoeat: PlanToEatMigrator,
         }
 
         constructor = table.get(migration_type, None)

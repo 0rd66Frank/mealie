@@ -18,7 +18,6 @@
           solo
           hide-details
           dense
-          class="mx-1"
           type="number"
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
@@ -89,7 +88,6 @@
             hide-details
             dense
             solo
-            class="mx-1"
             :placeholder="$t('recipe.notes')"
             @click="$emit('clickIngredientField', 'note')"
           >
@@ -100,7 +98,7 @@
           <BaseButtonGroup
             hover
             :large="false"
-            class="my-auto"
+            class="my-auto d-flex"
             :buttons="btns"
             @toggle-section="toggleTitle"
             @toggle-original="toggleOriginalText"
@@ -205,8 +203,7 @@ export default defineComponent({
 
     async function createAssignFood() {
       foodData.data.name = foodSearch.value;
-      await foodStore.actions.createOne(foodData.data);
-      props.value.food = foodStore.foods.value?.find((food) => food.name === foodSearch.value);
+      props.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
       foodData.reset();
     }
 
@@ -218,8 +215,7 @@ export default defineComponent({
 
     async function createAssignUnit() {
       unitsData.data.name = unitSearch.value;
-      await unitStore.actions.createOne(unitsData.data);
-      props.value.unit = unitStore.units.value?.find((unit) => unit.name === unitSearch.value);
+      props.value.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
       unitsData.reset();
     }
 

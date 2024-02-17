@@ -53,7 +53,7 @@
     "apprise-url": "Apprise URL",
     "database": "Database",
     "delete-event": "Gebeurtenis verwijderen",
-    "event-delete-confirmation": "Weet je zeker dat je deze gebeurtenis wil verwijderen?",
+    "event-delete-confirmation": "Weet je zeker dat je deze gebeurtenis wilt verwijderen?",
     "event-deleted": "Gebeurtenis verwijderd",
     "event-updated": "Gebeurtenis bijgewerkt",
     "new-notification-form-description": "Mealie gebruikt de notificatieservices van Apprise om notificaties te genereren. Apprise biedt diverse services aan om notificaties te versturen. Raadpleeg hun wiki voor een uitgebreide handleiding over het creëren van een link voor je service. Afhankelijk van de gekozen service zijn er mogelijk extra functionaliteiten beschikbaar.",
@@ -76,14 +76,15 @@
     "cookbook-events": "Kookboek gebeurtenissen",
     "tag-events": "Tag gebeurtenissen",
     "category-events": "Categorie gebeurtenissen",
-    "when-a-new-user-joins-your-group": "Als een nieuwe gebruiker zich bij je groep aansluit"
+    "when-a-new-user-joins-your-group": "Als een nieuwe gebruiker zich bij je groep aansluit",
+    "recipe-events": "Recept gebeurtenissen"
   },
   "general": {
     "cancel": "Annuleren",
     "clear": "Wissen",
     "close": "Sluiten",
     "confirm": "Bevestigen",
-    "confirm-delete-generic": "Weet je zeker dat je dit wil verwijderen?",
+    "confirm-delete-generic": "Weet je zeker dat je dit wilt verwijderen?",
     "copied_message": "Gekopieerd!",
     "create": "Aanmaken",
     "created": "Aangemaakt op",
@@ -113,7 +114,10 @@
     "json": "JSON",
     "keyword": "Trefwoord",
     "link-copied": "Link Gekopieerd",
+    "loading": "Laden",
     "loading-events": "Gebeurtenis laden",
+    "loading-recipe": "Recepten ophalen...",
+    "loading-ocr-data": "OCR gegevens laden...",
     "loading-recipes": "Recepten ophalen",
     "message": "Bericht",
     "monday": "maandag",
@@ -124,6 +128,7 @@
     "no-recipe-found": "Geen recept gevonden",
     "ok": "Ok",
     "options": "Opties:",
+    "plural-name": "Naam voor meervoud",
     "print": "Afdrukken",
     "print-preferences": "Voorkeuren afdrukken",
     "random": "Willekeurig",
@@ -192,7 +197,10 @@
     "export-all": "Exporteer alles",
     "refresh": "Verversen",
     "upload-file": "Bestand uploaden",
-    "created-on-date": "Gemaakt op {0}"
+    "created-on-date": "Gemaakt op {0}",
+    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
+    "confirm-delete-generic-items": "Weet u zeker dat u de volgende items wilt verwijderen?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -207,6 +215,7 @@
     "group-id-with-value": "Groepsid: {groupID}",
     "group-name": "Groepsnaam",
     "group-not-found": "Groep niet gevonden",
+    "group-token": "Groep token",
     "group-with-value": "Groep: {groupID}",
     "groups": "Groepen",
     "manage-groups": "Beheer groepen",
@@ -242,6 +251,7 @@
     "general-preferences": "Algemene voorkeuren",
     "group-recipe-preferences": "Groepeer receptvoorkeuren",
     "report": "Rapport",
+    "report-with-id": "Rapport ID: {id}",
     "group-management": "Groepsbeheer",
     "admin-group-management": "Beheerder groep beheer",
     "admin-group-management-text": "Wijzigingen in deze groep zijn meteen zichtbaar.",
@@ -249,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Maak een nieuw maaltijdplan",
+    "update-this-meal-plan": "Werk dit Maaltijdplan bij",
     "dinner-this-week": "Het diner deze week",
     "dinner-today": "Het diner vandaag",
     "dinner-tonight": "DINER VOOR DEZE AVOND",
@@ -296,7 +307,7 @@
     "for-type-meal-types": "voor {0} maaltijdsoorten",
     "meal-plan-rules": "Maaltijdplanregels",
     "new-rule": "Nieuwe regel",
-    "meal-plan-rules-description": "Je kunt regels maken voor het automatisch selecteren van recepten voor je maaltijdplannen. Deze regels worden gebruikt door de server om de willekeurige reeks recepten te bepalen waaruit je kunt selecteren bij het maken van maaltijdplannen. Merk op dat als regels dezelfde dag/type beperkingen hebben, de categorieën van de regels worden samengevoegd. In de praktijk is het niet nodig om dubbele regels te maken, maar het is wel mogelijk om dit te doen.",
+    "meal-plan-rules-description": "Je kunt regels maken voor het automatisch selecteren van recepten voor je maaltijdplanning. Deze regels worden gebruikt door de server om de recepten te selecteren bij het maken van een maaltijdplanning. Houdt er rekening mee dat als regels dezelfde dag en type restricties hebben de categorieën van de regels worden samengevoegd. In de praktijk is het dus niet nodig om dubbele regels te maken, maar het is wel mogelijk.",
     "new-rule-description": "Bij het opstellen van een nieuwe regel voor een maaltijdplan kunt u de regel beperken tot een specifieke dag van de week en/of een specifiek type maaltijd. Om een regel toe te passen op alle dagen of alle maaltijden kunt u de regel op \"Ieder\" instellen die deze toepast op alle mogelijke waarden voor het type dag en/of maaltijd.",
     "recipe-rules": "Recept Regels",
     "applies-to-all-days": "Van toepassing op alle dagen",
@@ -345,7 +356,11 @@
     "recipe-1": "Eerste recept",
     "recipe-2": "Tweede recept",
     "paprika-text": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
-    "mealie-text": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd."
+    "mealie-text": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd.",
+    "plantoeat": {
+      "title": "Plan naar Eat",
+      "description-long": "Mealie kan recepten importeren van Plan naar Eet."
+    }
   },
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
@@ -456,9 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "JJJJ-MM-DD formaat",
     "add-to-list": "Toevoegen aan lijst",
     "add-to-plan": "Toevoegen aan plan",
+    "add-to-timeline": "Aan tijdlijn toevoegen",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
+    "recipes-added-to-list": "Recept toegevoegd aan de lijst",
+    "successfully-added-to-list": "Succesvol toegevoegd aan de lijst",
     "recipe-added-to-mealplan": "Recept toegevoegd aan het maaltijdplan",
+    "failed-to-add-recipes-to-list": "Kon recept niet aan de lijst toevoegen ",
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
+    "failed-to-add-to-list": "Toevoegen aan lijst mislukt",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies een eenheid",
@@ -479,6 +499,13 @@
     "increase-scale-label": "Verhoog de schaal met 1",
     "locked": "Vergrendeld",
     "public-link": "Openbare link",
+    "timer": {
+      "kitchen-timer": "Kookwekker",
+      "start-timer": "Kookwekker starten",
+      "pause-timer": "Kookwekker pauzeren",
+      "resume-timer": "Kookwekker hervatten",
+      "stop-timer": "Kookwekker stoppen"
+    },
     "edit-timeline-event": "Bewerk tijdlijn gebeurtenis",
     "timeline": "Tijdlijn",
     "timeline-is-empty": "Nog niets op de tijdlijn. Probeer dit recept te maken!",
@@ -488,10 +515,11 @@
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
     "last-made-date": "Laatste Gemaakt {date}",
-    "api-extras-description": "Extra's recepten zijn een belangrijke functie van de Mealie API. Hiermee kunt u aangepaste json key/value paren maken binnen een recept om te verwijzen naar applicaties van 3e onderdelen. Je kunt deze sleutels gebruiken om informatie te bevatten om automatisering of aangepaste berichten te laten verzenden naar het gewenste apparaat.",
+    "api-extras-description": "Extra's bij recepten zijn een belangrijke functie van de Mealie API. Hiermee kun je aangepaste JSON key/value paren maken bij een recept en kun je naar verwijzen vanuit applicaties van derden. Je kunt deze sleutels gebruiken om extra informatie te bieden, bijvoorbeeld om automatisering aan te sturen of aangepaste berichten naar je gewenste apparaat te laten versturen.",
     "message-key": "recept -> bericht-sleutel",
     "parse": "Verwerk",
     "attach-images-hint": "Voeg afbeeldingen toe door ze te slepen en in de editor te plaatsen",
+    "drop-image": "Afbeelding toevoegen",
     "enable-ingredient-amounts-to-use-this-feature": "Schakel hoeveelheden ingrediënt in om deze functie te gebruiken",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepten met bepaalde eenheden of levensmiddelen kunnen niet verwerkt worden.",
     "parse-ingredients": "Ingrediënten verwerken",
@@ -509,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Nieuwe receptnamen moeten uniek zijn",
     "scrape-recipe": "Scrape recept",
     "scrape-recipe-description": "Voeg een recept toe via een url. Geef de url op van de site welke je wil scannen voor een recept., en Mealie zal proberen het recept vanaf die plek te scannen en aan je collectie toe te voegen.",
+    "scrape-recipe-have-a-lot-of-recipes": "Heb je veel recepten die je in 1 keer wil importeren?",
+    "scrape-recipe-suggest-bulk-importer": "Probeer de bulk importer uit",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als tags",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "import-from-zip": "Importeren uit zip",
@@ -529,7 +559,10 @@
     "tree-view": "Boomstructuurweergave",
     "recipe-yield": "Recept Opbrengst",
     "unit": "Eenheid",
-    "upload-image": "Afbeelding uploaden"
+    "upload-image": "Afbeelding uploaden",
+    "screen-awake": "Scherm aan laten staan",
+    "remove-image": "Afbeelding verwijderen",
+    "nextStep": "Volgende stap"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -547,14 +580,17 @@
     "tag-filter": "Labelfilter",
     "search-hint": "Druk op '/'",
     "advanced": "Geavanceerd",
-    "auto-search": "Automatisch zoeken"
+    "auto-search": "Automatisch zoeken",
+    "no-results": "Geen resultaten gevonden"
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
     "admin-settings": "Beheerdersinstellingen",
     "backup": {
+      "backup-created": "Back-up successvol gemaakt",
       "backup-created-at-response-export_path": "Back-up gemaakt op {path}",
       "backup-deleted": "Back-up verwijderd",
+      "restore-success": "Herstellen gelukt",
       "backup-tag": "Back-uplabel",
       "create-heading": "Back-up maken",
       "delete-backup": "Back-up verwijderen",
@@ -563,8 +599,7 @@
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke back-up",
       "unable-to-delete-backup": "Kan back-up niet verwijderen.",
-      "experimental-description": "Back-up maakt een totale snapshots van de database en data directory van de site. Dit omvat alle gegevens en kan niet worden ingesteld om subsets van gegevens uit te sluiten. Je kunt dit op een bepaald moment als een snapshot van Mealie opvatten. Op dit moment {not-crossed-version} (gegevensmigratie wordt niet automatisch afgerond). Deze dienen als een agnostische manier om gegevens te exporteren en importeren of een backup van de site naar een externe locatie te maken.",
-      "not-crossed-version": "dit back-upmechanisme is geen cross-version en kan daarom niet worden gebruikt om data tussen versies te migreren",
+      "experimental-description": "Back-up maakt een momentopname van de database en data directory van de site. Dit omvat alle gegevens en kan niet worden ingesteld om subsets van gegevens uit te sluiten. Je kunt dit opvatten als een momentopname van Mealie. Deze dienen als een agnostische manier om gegevens te exporteren en importeren, of een backup van de site naar een externe locatie te maken.",
       "backup-restore": "Back-up maken/terugzetten",
       "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in uw database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt u afgemeld.",
       "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt - gebruik met voorzichtigheid.",
@@ -664,11 +699,13 @@
     "configuration": "Configuratie",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie vereist dat de frontend container en de backend hetzelfde docker volume of opslag delen. Dit zorgt ervoor dat de frontend container op een goede manier toegang heeft tot de afbeeldingen en bestanden op de schijf.",
-    "volumes-are-misconfigured": "Volumes zijn verkeerd geconfigureerd",
+    "volumes-are-misconfigured": "Volumes zijn verkeerd geconfigureerd.",
     "volumes-are-configured-correctly": "Volumes zijn juist geconfigureerd.",
     "status-unknown-try-running-a-validation": "Status onbekend. Probeer een validatie te doen.",
     "validate": "Controleer",
     "email-configuration-status": "Email configuratie",
+    "email-configured": "E-mail geconfigureerd",
+    "email-test-results": "E-mail test resultaten",
     "ready": "Klaar",
     "not-ready": "Niet klaar - Controleer omgevingsvariabelen",
     "succeeded": "Geslaagd",
@@ -700,7 +737,7 @@
     "shopping-lists": "Boodschappenlijsten",
     "food": "Voedsel",
     "note": "Notitie",
-    "label": "Etiket",
+    "label": "Label",
     "linked-item-warning": "Dit element is gekoppeld aan een of meer recepten. Het aanpassen van de eenheden of ingrediënten zal onverwachte resultaten opleveren bij het toevoegen of verwijderen van het recept uit deze lijst.",
     "toggle-food": "Voedsel schakelen",
     "manage-labels": "Labels beheren",
@@ -710,10 +747,10 @@
     "delete-checked": "Selectie verwijderen",
     "toggle-label-sort": "Label sortering in-/uitschakelen",
     "reorder-labels": "Labels opnieuw indelen",
-    "uncheck-all-items": "Deselecteer alle Items",
-    "check-all-items": "Alle producten controleren",
+    "uncheck-all-items": "Deselecteer alle items",
+    "check-all-items": "Selecteer alle items",
     "linked-recipes-count": "Geen Gelinkte Recepten Eén Gekoppeld Recept{count} Gekoppelde Recepten",
-    "items-checked-count": "Geen items aangevinkt, Eén item gecontroleerd{count} items gecontroleerd",
+    "items-checked-count": "Geen items geselecteerd|Eén item geselecteerd|{count} items geselecteerd",
     "no-label": "Geen label",
     "completed-on": "Afgemaakt op {date}"
   },
@@ -724,7 +761,7 @@
     "cookbooks": "Kookboeken",
     "dashboard": "Dashboard",
     "home-page": "Homepagina",
-    "manage-users": "Beheer gebruikers",
+    "manage-users": "Beheer Gebruikers",
     "migrations": "Migraties",
     "profile": "Profiel",
     "search": "Zoeken",
@@ -759,7 +796,8 @@
     "tags": "Labels",
     "untagged-count": "Niet gelabeld {count}",
     "create-a-tag": "Maak een nieuw label aan",
-    "tag-name": "Labelnaam"
+    "tag-name": "Labelnaam",
+    "tag": "Label"
   },
   "tool": {
     "tools": "Keukengerei",
@@ -768,7 +806,8 @@
     "tool-name": "Naam van het keukengerei",
     "create-new-tool": "Nieuw keukengerei aanmaken",
     "on-hand-checkbox-label": "Tonen als in bezit (gemarkeerd)",
-    "required-tools": "Benodig kookgerei"
+    "required-tools": "Benodig kookgerei",
+    "tool": "Keukengerei"
   },
   "user": {
     "admin": "Beheerder",
@@ -803,6 +842,7 @@
     "password-updated": "Wachtwoord bijgewerkt",
     "password": "Wachtwoord",
     "password-strength": "Wachtwoord is {strength}",
+    "please-enter-password": "Voeg uw nieuwe wachtwoord in.",
     "register": "Registreren",
     "reset-password": "Wachtwoord herstellen",
     "sign-in": "Inloggen",
@@ -823,6 +863,7 @@
     "username": "Gebruikersnaam",
     "users-header": "GEBRUIKERS",
     "users": "Gebruikers",
+    "user-not-found": "Gebruiker niet gevonden",
     "webhook-time": "Webhooktijd",
     "webhooks-enabled": "Webhooks ingeschakeld",
     "you-are-not-allowed-to-create-a-user": "Je hebt geen toestemming om een gebruiker aan te maken",
@@ -845,6 +886,7 @@
     "user-management": "Gebruikersbeheer",
     "reset-locked-users": "Vergrendelde gebruikers resetten",
     "admin-user-creation": "Admin (hoofd) gebruiker aanmaken",
+    "admin-user-management": "Gebruikersbeheer",
     "user-details": "Gebruikersdetails",
     "user-name": "Gebruikersnaam",
     "authentication-method": "Verificatiemethode",
@@ -854,7 +896,12 @@
     "user-can-invite-other-to-group": "Gebruiker kan iemand uitnodigen voor de groep",
     "user-can-manage-group": "Gebruiker kan de groep beheren",
     "user-can-organize-group-data": "Gebruiker kan groepsgegevens organiseren",
-    "enable-advanced-features": "Geavanceerde functies inschakelen"
+    "enable-advanced-features": "Geavanceerde functies inschakelen",
+    "it-looks-like-this-is-your-first-time-logging-in": "Het lijkt erop dat je voor het eerst inlogt.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
+    "forgot-password": "Wachtwoord vergeten",
+    "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te resetten.",
+    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar."
   },
   "language-dialog": {
     "translated": "vertaald",
@@ -875,7 +922,9 @@
       "create-food": "Maak Voedsel",
       "food-label": "Voedsel Label",
       "edit-food": "Bewerk voedsel",
-      "food-data": "Voedsel gegevens"
+      "food-data": "Voedsel gegevens",
+      "example-food-singular": "bv: Ui",
+      "example-food-plural": "bv: Uien"
     },
     "units": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende eenheden, gebaseerd op je lokale taal.",
@@ -886,13 +935,18 @@
       "merging-unit-into-unit": "{0} samenvoegen met {1}",
       "create-unit": "Eenheid aanmaken",
       "abbreviation": "Afkorting",
+      "plural-abbreviation": "Afkorting voor meervoud",
       "description": "Beschrijving",
       "display-as-fraction": "Gedeelte weergeven",
       "use-abbreviation": "Gebruik afkorting",
       "edit-unit": "Eenheid wijzigen",
       "unit-data": "Eenheid gegevens",
       "use-abbv": "Gebruik afk.",
-      "fraction": "Breuk"
+      "fraction": "Breuk",
+      "example-unit-singular": "Bv: eetlepel ",
+      "example-unit-plural": "Bv: eetlepels ",
+      "example-unit-abbreviation-singular": "Bv: el",
+      "example-unit-abbreviation-plural": "bv: els"
     },
     "labels": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
@@ -921,6 +975,8 @@
       "delete-recipes": "Verwijder recepten",
       "source-unit-will-be-deleted": "Broneenheid zal worden verwijderd"
     },
+    "create-alias": "Maak alias",
+    "manage-aliases": "Beheer aliassen ",
     "seed-data": "Voorbeeldgegevens",
     "seed": "Vul",
     "data-management": "Gegevensbeheer",
@@ -928,10 +984,26 @@
     "select-data": "Selecteer gegevens",
     "select-language": "Selecteer taal",
     "columns": "Kolommen",
-    "combine": "Samenvoegen"
+    "combine": "Samenvoegen",
+    "categories": {
+      "edit-category": "Categorie Bewerken",
+      "new-category": "Categorie Toevoegen",
+      "category-data": "Categorie Overzicht"
+    },
+    "tags": {
+      "new-tag": "Label Toevoegen",
+      "edit-tag": "Label Bewerken",
+      "tag-data": "Label Overzicht"
+    },
+    "tools": {
+      "new-tool": "Keukengerei Toevoegen",
+      "edit-tool": "Keukengerei Bewerken",
+      "tool-data": "Keukengerei Overzicht"
+    }
   },
   "user-registration": {
     "user-registration": "Gebruikersregistratie",
+    "registration-success": "Registratie geslaagd",
     "join-a-group": "Lid worden van een groep",
     "create-a-new-group": "Maak een nieuwe groep aan",
     "provide-registration-token-description": "Geef het registratietoken op dat is gekoppeld aan de groep waar je lid van wil worden. Je moet dit token aanvragen bij een lid van de groep.",
@@ -978,6 +1050,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR-bewerker",
+    "toolbar": "Gereedschap balk",
     "selection-mode": "Selectiemodus",
     "pan-and-zoom-picture": "Pan- en zoom afbeelding",
     "split-text": "Tekst splitsen",
@@ -985,6 +1058,8 @@
     "split-by-block": "Splits per tekstblok",
     "flatten": "Plat maken ongeacht originele opmaak",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Muis modus",
       "selection-mode": "Selectiemodus (standaard)",
       "selection-mode-desc": "De selectiemodus is de hoofdmodus die gebruikt kan worden om gegevens in te voeren:",
       "selection-mode-steps": {
@@ -1060,6 +1135,7 @@
     "welcome-user": "👋 Welkom, {0}",
     "description": "Beheer je profiel, recepten en groepsinstellingen.",
     "get-invite-link": "Krijg uitnodigingslink",
+    "get-public-link": "Openbare link krijgen",
     "account-summary": "Accountoverzicht",
     "account-summary-description": "Hier is een samenvatting van de informatie van jouw groep",
     "group-statistics": "Groepsstatistieken",
@@ -1110,6 +1186,8 @@
     "require-all-tags": "Vereis alle tags",
     "require-all-tools": "Vereis al het kookgerei",
     "cookbook-name": "Naam van het kookboek",
-    "cookbook-with-name": "Kookboek {0}"
+    "cookbook-with-name": "Kookboek {0}",
+    "create-a-cookbook": "Maak een kookboek",
+    "cookbook": "Kookboek"
   }
 }

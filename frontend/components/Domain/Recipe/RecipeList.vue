@@ -1,7 +1,13 @@
 <template>
   <v-list :class="tile ? 'd-flex flex-wrap background' : 'background'">
-    <v-sheet v-for="recipe, index in recipes" :key="recipe.id" :class="attrs.class.sheet" :style="tile ? 'width: fit-content;' : 'width: 100%;'">
-      <v-list-item :to="'/recipe/' + recipe.slug" :class="attrs.class.listItem">
+    <v-sheet
+      v-for="recipe, index in recipes"
+      :key="recipe.id"
+      :elevation="2"
+      :class="attrs.class.sheet"
+      :style="tile ? 'max-width: 100%; width: fit-content;' : 'width: 100%;'"
+    >
+      <v-list-item :to="'/g/' + groupSlug + '/r/' + recipe.slug" :class="attrs.class.listItem">
         <v-list-item-avatar :class="attrs.class.avatar">
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
         </v-list-item-avatar>
@@ -10,7 +16,10 @@
             {{ recipe.name }}
           </v-list-item-title>
           <v-list-item-subtitle v-if="showDescription">{{ recipe.description }}</v-list-item-subtitle>
-          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle" v-html="listItemDescriptions[index]"/>
+          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle">
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div v-html="listItemDescriptions[index]"></div>
+          </v-list-item-subtitle>
         </v-list-item-content>
         <slot :name="'actions-' + recipe.id" :v-bind="{ item: recipe }"> </slot>
       </v-list-item>
@@ -19,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import DOMPurify from "dompurify";
 import { useFraction } from "~/composables/recipes/use-fraction";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
@@ -49,7 +58,10 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth } = useContext();
     const { frac } = useFraction();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const attrs = computed(() => {
       return props.small ? {
@@ -141,6 +153,7 @@ export default defineComponent({
 
     return {
       attrs,
+      groupSlug,
       listItemDescriptions,
     };
   },

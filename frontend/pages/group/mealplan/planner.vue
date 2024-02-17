@@ -24,12 +24,12 @@
       </v-date-picker>
     </v-menu>
 
-    <div class="d-flex align-center justify-space-between mb-2">
-      <v-tabs>
-        <v-tab to="/group/mealplan/planner/view">{{ $t('meal-plan.meal-planner') }}</v-tab>
-        <v-tab to="/group/mealplan/planner/edit">{{ $t('general.edit') }}</v-tab>
+    <div class="d-flex flex-wrap align-center justify-space-between mb-2">
+      <v-tabs style="width: fit-content;">
+        <v-tab :to="`/group/mealplan/planner/view`">{{ $t('meal-plan.meal-planner') }}</v-tab>
+        <v-tab :to="`/group/mealplan/planner/edit`">{{ $t('general.edit') }}</v-tab>
       </v-tabs>
-      <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" :text="$tc('general.settings')" />
+      <ButtonLink :icon="$globals.icons.calendar" :to="`/group/mealplan/settings`" :text="$tc('general.settings')" />
     </div>
 
     <div>
@@ -79,7 +79,6 @@ export default defineComponent({
       });
 
       if (sorted.length === 2) {
-        console.log(parseYYYYMMDD(sorted[0]));
         return {
           start: parseYYYYMMDD(sorted[0]),
           end: parseYYYYMMDD(sorted[1]),
@@ -105,11 +104,15 @@ export default defineComponent({
       const numDays =
         Math.floor((weekRange.value.end.getTime() - weekRange.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
-      // Calculate aboslute value
+      // Calculate absolute value
       if (numDays < 0) return [];
 
       return Array.from(Array(numDays).keys()).map(
-        (i) => new Date(weekRange.value.start.getTime() + i * 24 * 60 * 60 * 1000)
+        (i) => {
+          const date = new Date(weekRange.value.start.getTime());
+          date.setDate(date.getDate() + i);
+          return date;
+        }
       );
     });
 

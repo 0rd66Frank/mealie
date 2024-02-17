@@ -6,7 +6,7 @@
         "unique-name-error": "Recipe names must be unique"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "ルールに一致するレシピはありません"
     },
     "user": {
         "user-updated": "ユーザを更新しました。",
@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} has been updated, {url}",
         "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} has been deleted"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

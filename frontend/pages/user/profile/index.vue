@@ -1,39 +1,50 @@
 <template>
   <v-container v-if="user">
-    <section class="d-flex flex-column align-center">
-      <UserAvatar size="84" :user-id="$auth.user.id" />
+    <section class="d-flex flex-column align-center mt-4">
+      <UserAvatar size="96" :user-id="$auth.user.id" />
 
       <h2 class="headline">{{ $t('profile.welcome-user', [user.fullName]) }}</h2>
-      <p class="subtitle-1 mb-0">
+      <p class="subtitle-1 mb-0 text-center">
        {{ $t('profile.description') }}
-        <a href="https://hay-kot.github.io/mealie/" target="_blank"> {{ $t('general.learn-more') }} </a>
       </p>
-      <v-card v-if="$auth.user.canInvite" flat color="background" width="100%" max-width="600px">
-        <v-card-actions class="d-flex justify-center">
-          <v-btn outlined rounded @click="getSignupLink()">
+      <v-card flat color="background" width="100%" max-width="600px">
+        <v-card-actions class="d-flex justify-center my-4">
+          <v-btn v-if="$auth.user.canInvite"  outlined rounded @click="getSignupLink()">
             <v-icon left>
               {{ $globals.icons.createAlt }}
             </v-icon>
             {{ $t('profile.get-invite-link') }}
           </v-btn>
         </v-card-actions>
-        <div v-show="generatedLink !== ''">
+        <div v-show="generatedSignupLink !== ''">
           <v-card-text>
             <p class="text-center pb-0">
-              {{ generatedLink }}
+              {{ generatedSignupLink }}
             </p>
             <v-text-field v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]"> </v-text-field>
           </v-card-text>
           <v-card-actions class="py-0 align-center" style="gap: 4px">
-            <BaseButton cancel @click="generatedLink = ''"> {{ $t("general.close") }} </BaseButton>
+            <BaseButton cancel @click="generatedSignupLink = ''"> {{ $t("general.close") }} </BaseButton>
             <v-spacer></v-spacer>
-            <AppButtonCopy :icon="false" color="info" :copy-text="generatedLink" />
+            <AppButtonCopy :icon="false" color="info" :copy-text="generatedSignupLink" />
             <BaseButton color="info" :disabled="!validEmail" :loading="loading" @click="sendInvite">
               <template #icon>
                 {{ $globals.icons.email }}
               </template>
               {{ $t("user.email") }}
             </BaseButton>
+          </v-card-actions>
+        </div>
+        <div v-show="showPublicLink">
+          <v-card-text>
+            <p class="text-center pb-0">
+              {{ publicLink }}
+            </p>
+          </v-card-text>
+          <v-card-actions class="py-0 align-center" style="gap: 4px">
+            <BaseButton cancel @click="showPublicLink = false"> {{ $t("general.close") }} </BaseButton>
+            <v-spacer></v-spacer>
+            <AppButtonCopy :icon="false" color="info" :copy-text="publicLink" />
           </v-card-actions>
         </div>
       </v-card>
@@ -44,7 +55,7 @@
         <p>{{ $t('profile.account-summary-description') }}</p>
       </div>
       <v-row tag="section">
-        <v-col cols="12" sm="12" md="6">
+        <v-col cols="12" sm="12" md="12">
           <v-card outlined>
             <v-card-title class="headline pb-0"> {{ $t('profile.group-statistics') }} </v-card-title>
             <v-card-text class="py-0">
@@ -64,22 +75,6 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" sm="12" md="6" class="d-flex align-strart">
-          <v-card outlined>
-            <v-card-title class="headline pb-0"> {{ $t('profile.storage-capacity') }} </v-card-title>
-            <v-card-text class="py-0">
-              {{ $t('profile.storage-capacity-description') }}
-              <strong> {{ $t('general.this-feature-is-currently-inactive') }}</strong>
-            </v-card-text>
-            <v-card-text>
-              <v-progress-linear :value="storageUsedPercentage" color="accent" class="rounded" height="30">
-                <template #default>
-                  <strong> {{ storageText }} </strong>
-                </template>
-              </v-progress-linear>
-            </v-card-text>
-          </v-card>
-        </v-col>
       </v-row>
     </section>
     <v-divider class="my-7"></v-divider>
@@ -91,7 +86,7 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-user-profile'), to: '/user/profile/edit' }"
+            :link="{ text: $tc('profile.manage-user-profile'), to: `/user/profile/edit` }"
             :image="require('~/static/svgs/manage-profile.svg')"
           >
             <template #title> {{ $t('profile.user-settings') }} </template>
@@ -101,7 +96,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-your-api-tokens'), to: '/user/profile/api-tokens' }"
+              :link="{ text: $tc('profile.manage-your-api-tokens'), to: `/user/profile/api-tokens` }"
               :image="require('~/static/svgs/manage-api-tokens.svg')"
             >
               <template #title> {{ $t('settings.token.api-tokens') }} </template>
@@ -120,7 +115,7 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.group-settings'), to: '/group' }"
+            :link="{ text: $tc('profile.group-settings'), to: `/group` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
           >
             <template #title> {{ $t('profile.group-settings') }} </template>
@@ -129,7 +124,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-cookbooks'), to: '/group/cookbooks' }"
+            :link="{ text: $tc('profile.manage-cookbooks'), to: `/g/${groupSlug}/cookbooks` }"
             :image="require('~/static/svgs/manage-cookbooks.svg')"
           >
             <template #title> {{ $t('sidebar.cookbooks') }} </template>
@@ -138,7 +133,7 @@
         </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-members'), to: '/group/members' }"
+            :link="{ text: $tc('profile.manage-members'), to: `/group/members` }"
             :image="require('~/static/svgs/manage-members.svg')"
           >
             <template #title> {{ $t('profile.members') }} </template>
@@ -148,7 +143,7 @@
         <AdvancedOnly>
           <v-col v-if="user.advanced" cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-webhooks'), to: '/group/webhooks' }"
+              :link="{ text: $tc('profile.manage-webhooks'), to: `/group/webhooks` }"
               :image="require('~/static/svgs/manage-webhooks.svg')"
             >
               <template #title> {{ $t('settings.webhooks.webhooks') }} </template>
@@ -159,7 +154,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-notifiers'), to: '/group/notifiers' }"
+              :link="{ text: $tc('profile.manage-notifiers'), to: `/group/notifiers` }"
               :image="require('~/static/svgs/manage-notifiers.svg')"
             >
               <template #title> {{ $t('profile.notifiers') }} </template>
@@ -170,7 +165,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-data'), to: '/group/data/foods' }"
+              :link="{ text: $tc('profile.manage-data'), to: `/group/data/foods` }"
               :image="require('~/static/svgs/manage-recipes.svg')"
             >
               <template #title> {{ $t('profile.manage-data') }} </template>
@@ -181,7 +176,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-data-migrations'), to: '/group/migrations' }"
+              :link="{ text: $tc('profile.manage-data-migrations'), to: `/group/migrations` }"
               :image="require('~/static/svgs/manage-data-migrations.svg')"
             >
               <template #title>{{ $t('profile.data-migrations') }} </template>
@@ -195,7 +190,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, ref, toRefs, reactive, useAsync } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, ref, toRefs, reactive, useAsync, useRoute } from "@nuxtjs/composition-api";
+import { invoke, until } from "@vueuse/core";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
@@ -203,6 +199,7 @@ import { alert } from "~/composables/use-toast";
 import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import StatsCards from "~/components/global/StatsCards.vue";
+import { GroupInDB, UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   name: "UserProfile",
@@ -214,17 +211,36 @@ export default defineComponent({
   scrollToTop: true,
   setup() {
     const { $auth, i18n } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
-    const user = computed(() => $auth.user);
+    // @ts-ignore $auth.user is typed as unknown, but it's a user
+    const user = computed<UserOut | null>(() => $auth.user);
+    const group = ref<GroupInDB | null>(null);
 
-    const generatedLink = ref("");
+    const showPublicLink = ref(false);
+    const publicLink = ref("");
+
+    const generatedSignupLink = ref("");
     const token = ref("");
     const api = useUserApi();
+
+    invoke(async () => {
+      await until(user.value).not.toBeNull();
+      if (!user.value) {
+        return;
+      }
+
+      const { data } = await api.users.getSelfGroup();
+      group.value = data;
+    });
+
     async function getSignupLink() {
       const { data } = await api.groups.createInvitation({ uses: 1 });
       if (data) {
         token.value = data.token;
-        generatedLink.value = constructLink(data.token);
+        generatedSignupLink.value = constructLink(data.token);
+        showPublicLink.value = false;
       }
     }
 
@@ -291,7 +307,7 @@ export default defineComponent({
 
     const iconText: { [key: string]: string } = {
       totalUsers: $globals.icons.user,
-      totalCategories: $globals.icons.tags,
+      totalCategories: $globals.icons.categories,
       totalTags: $globals.icons.tags,
       totalTools: $globals.icons.potSteam,
     };
@@ -300,51 +316,30 @@ export default defineComponent({
       return iconText[key] ?? $globals.icons.primary;
     }
 
-    const statsTo: { [key: string]: string } = {
-      totalRecipes: "/",
+    const statsTo = computed<{ [key: string]: string }>(() => { return {
+      totalRecipes: `/g/${groupSlug.value}/`,
       totalUsers: "/group/members",
-      totalCategories: "/recipes/categories",
-      totalTags: "/recipes/tags",
-      totalTools: "/recipes/tools",
-    };
+      totalCategories: `/g/${groupSlug.value}/recipes/categories`,
+      totalTags: `/g/${groupSlug.value}/recipes/tags`,
+      totalTools: `/g/${groupSlug.value}/recipes/tools`,
+    }});
 
     function getStatsTo(key: string) {
-      return statsTo[key] ?? "unknown";
+      return statsTo.value[key] ?? "unknown";
     }
 
-    const storage = useAsync(async () => {
-      const { data } = await api.groups.storage();
-
-      if (data) {
-        return data;
-      }
-    }, useAsyncKey());
-
-    const storageUsedPercentage = computed(() => {
-      if (!storage.value) {
-        return 0;
-      }
-
-      return (storage.value?.usedStorageBytes / storage.value?.totalStorageBytes) * 100 ?? 0;
-    });
-
-    const storageText = computed(() => {
-      if (!storage.value) {
-        return "Loading...";
-      }
-      return `${storage.value.usedStorageStr} / ${storage.value.totalStorageStr}`;
-    });
-
     return {
-      storageText,
-      storageUsedPercentage,
+      groupSlug,
       getStatsTitle,
       getStatsIcon,
       getStatsTo,
+      group,
       stats,
       user,
       constructLink,
-      generatedLink,
+      generatedSignupLink,
+      showPublicLink,
+      publicLink,
       getSignupLink,
       sendInvite,
       validators,

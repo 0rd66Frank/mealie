@@ -18,8 +18,7 @@ ALGORITHM = "HS256"
 logger = root_logger.get_logger("security")
 
 
-class UserLockedOut(Exception):
-    ...
+class UserLockedOut(Exception): ...
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
@@ -72,7 +71,9 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
             user_service.lock_user(user)
 
         return False
-    return user
+
+    user.login_attemps = 0
+    return db.users.update(user.id, user)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:

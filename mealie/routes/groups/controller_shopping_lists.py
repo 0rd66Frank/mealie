@@ -89,7 +89,7 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
 class ShoppingListItemController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos, self.user, self.group)
+        return ShoppingListService(self.repos, self.group)
 
     @cached_property
     def repo(self):
@@ -105,7 +105,7 @@ class ShoppingListItemController(BaseCrudController):
     @item_router.get("", response_model=ShoppingListItemPagination)
     def get_all(self, q: PaginationQuery = Depends()):
         response = self.repo.page_all(pagination=q, override=ShoppingListItemOut)
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @item_router.post("/create-bulk", response_model=ShoppingListItemsCollectionOut, status_code=201)
@@ -154,7 +154,7 @@ router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists
 class ShoppingListController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos, self.user, self.group)
+        return ShoppingListService(self.repos, self.group)
 
     @cached_property
     def repo(self):
@@ -174,7 +174,7 @@ class ShoppingListController(BaseCrudController):
             override=ShoppingListSummary,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @router.post("", response_model=ShoppingListOut, status_code=201)

@@ -1,5 +1,6 @@
 from functools import cached_property
 from shutil import copyfileobj
+from uuid import UUID
 from zipfile import ZipFile
 
 import orjson
@@ -27,10 +28,7 @@ from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeLastMade, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
-from mealie.schema.recipe.recipe_settings import RecipeSettings
-from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
@@ -128,7 +126,7 @@ class RecipeExportController(BaseRecipeController):
         recipe: Recipe = self.mixins.get_one(slug)
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
         with ZipFile(temp_path, "w") as myzip:
-            myzip.writestr(f"{slug}.json", recipe.json())
+            myzip.writestr(f"{slug}.json", recipe.model_dump_json())
 
             if image_asset.is_file():
                 myzip.write(image_asset, arcname=image_asset.name)
@@ -167,7 +165,7 @@ class RecipeController(BaseRecipeController):
     async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
-            recipe, extras = await create_from_url(req.url)
+            recipe, extras = await create_from_url(req.url, self.translator)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
@@ -187,7 +185,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
-                    url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -196,7 +194,7 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
+        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
         report_id = bulk_scraper.get_report_id()
         bg_tasks.add_task(bulk_scraper.scrape, bulk)
 
@@ -211,7 +209,7 @@ class RecipeController(BaseRecipeController):
     async def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
         try:
-            if scraped_data := await RecipeScraperPackage(url.url).scrape_url():
+            if scraped_data := await RecipeScraperPackage(url.url, self.translator).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -247,10 +245,17 @@ class RecipeController(BaseRecipeController):
     ):
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
-            cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
+            if isinstance(search_query.cookbook, UUID):
+                cb_match_attr = "id"
+            else:
+                try:
+                    UUID(search_query.cookbook)
+                    cb_match_attr = "id"
+                except ValueError:
+                    cb_match_attr = "slug"
             cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
 
-            if search_query.cookbook is None:
+            if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
         pagination_response = self.repo.page_all(
@@ -268,13 +273,13 @@ class RecipeController(BaseRecipeController):
         )
 
         # merge default pagination with the request's query params
-        query_params = q.dict() | {**request.query_params}
+        query_params = q.model_dump() | {**request.query_params}
         pagination_response.set_pagination_guides(
             router.url_path_for("get_all"),
             {k: v for k, v in query_params.items() if v is not None},
         )
 
-        json_compatible_response = orjson.dumps(pagination_response.dict(by_alias=True))
+        json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)
@@ -306,7 +311,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
-                    url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -347,7 +352,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -368,7 +373,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -390,7 +395,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -489,37 +494,3 @@ class RecipeController(BaseRecipeController):
         self.mixins.update_one(recipe, slug)
 
         return asset_in
-
-    # ==================================================================================================================
-    # OCR
-    @router.post("/create-ocr", status_code=201, response_model=str)
-    def create_recipe_ocr(
-        self, extension: str = Form(...), file: UploadFile = File(...), makefilerecipeimage: bool = Form(...)
-    ):
-        """Takes an image and creates a recipe based on the image"""
-        slug = self.service.create_one(
-            Recipe(
-                name="New OCR Recipe",
-                recipe_ingredient=[RecipeIngredient(note="", title=None, unit=None, food=None, original_text=None)],
-                recipe_instructions=[RecipeStep(text="")],
-                is_ocr_recipe=True,
-                settings=RecipeSettings(show_assets=True),
-                id=None,
-                image=None,
-                recipe_yield=None,
-                rating=None,
-                orgURL=None,
-                date_added=None,
-                date_updated=None,
-                created_at=None,
-                update_at=None,
-                nutrition=None,
-            )
-        ).slug
-        RecipeController.upload_recipe_asset(self, slug, "Original recipe image", "", extension, file)
-        if makefilerecipeimage:
-            # Get the pointer to the beginning of the file to read it once more
-            file.file.seek(0)
-            self.update_recipe_image(slug, file.file.read(), extension)
-
-        return slug

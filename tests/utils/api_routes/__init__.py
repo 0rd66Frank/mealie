@@ -5,8 +5,6 @@ admin_about = "/api/admin/about"
 """`/api/admin/about`"""
 admin_about_check = "/api/admin/about/check"
 """`/api/admin/about/check`"""
-admin_about_docker_validate = "/api/admin/about/docker/validate"
-"""`/api/admin/about/docker/validate`"""
 admin_about_statistics = "/api/admin/about/statistics"
 """`/api/admin/about/statistics`"""
 admin_analytics = "/api/admin/analytics"
@@ -45,6 +43,10 @@ admin_users_unlock = "/api/admin/users/unlock"
 """`/api/admin/users/unlock`"""
 app_about = "/api/app/about"
 """`/api/app/about`"""
+app_about_startup_info = "/api/app/about/startup-info"
+"""`/api/app/about/startup-info`"""
+app_about_theme = "/api/app/about/theme"
+"""`/api/app/about/theme`"""
 auth_refresh = "/api/auth/refresh"
 """`/api/auth/refresh`"""
 auth_token = "/api/auth/token"
@@ -109,12 +111,6 @@ groups_webhooks_rerun = "/api/groups/webhooks/rerun"
 """`/api/groups/webhooks/rerun`"""
 media_docker_validate_txt = "/api/media/docker/validate.txt"
 """`/api/media/docker/validate.txt`"""
-ocr = "/api/ocr/"
-"""`/api/ocr/`"""
-ocr_asset_to_tsv = "/api/ocr/asset-to-tsv"
-"""`/api/ocr/asset-to-tsv`"""
-ocr_file_to_tsv = "/api/ocr/file-to-tsv"
-"""`/api/ocr/file-to-tsv`"""
 organizers_categories = "/api/organizers/categories"
 """`/api/organizers/categories`"""
 organizers_categories_empty = "/api/organizers/categories/empty"
@@ -147,8 +143,6 @@ recipes_bulk_actions_tag = "/api/recipes/bulk-actions/tag"
 """`/api/recipes/bulk-actions/tag`"""
 recipes_create_from_zip = "/api/recipes/create-from-zip"
 """`/api/recipes/create-from-zip`"""
-recipes_create_ocr = "/api/recipes/create-ocr"
-"""`/api/recipes/create-ocr`"""
 recipes_create_url = "/api/recipes/create-url"
 """`/api/recipes/create-url`"""
 recipes_create_url_bulk = "/api/recipes/create-url/bulk"
@@ -183,6 +177,8 @@ users_reset_password = "/api/users/reset-password"
 """`/api/users/reset-password`"""
 users_self = "/api/users/self"
 """`/api/users/self`"""
+users_self_group = "/api/users/self/group"
+"""`/api/users/self/group`"""
 utils_download = "/api/utils/download"
 """`/api/utils/download`"""
 validators_group = "/api/validators/group"
@@ -223,6 +219,61 @@ def admin_users_item_id(item_id):
 def comments_item_id(item_id):
     """`/api/comments/{item_id}`"""
     return f"{prefix}/comments/{item_id}"
+
+
+def explore_cookbooks_group_slug(group_slug):
+    """`/api/explore/cookbooks/{group_slug}`"""
+    return f"{prefix}/explore/cookbooks/{group_slug}"
+
+
+def explore_cookbooks_group_slug_item_id(group_slug, item_id):
+    """`/api/explore/cookbooks/{group_slug}/{item_id}`"""
+    return f"{prefix}/explore/cookbooks/{group_slug}/{item_id}"
+
+
+def explore_foods_group_slug(group_slug):
+    """`/api/explore/foods/{group_slug}`"""
+    return f"{prefix}/explore/foods/{group_slug}"
+
+
+def explore_foods_group_slug_item_id(group_slug, item_id):
+    """`/api/explore/foods/{group_slug}/{item_id}`"""
+    return f"{prefix}/explore/foods/{group_slug}/{item_id}"
+
+
+def explore_organizers_group_slug_categories(group_slug):
+    """`/api/explore/organizers/{group_slug}/categories`"""
+    return f"{prefix}/explore/organizers/{group_slug}/categories"
+
+
+def explore_organizers_group_slug_categories_item_id(group_slug, item_id):
+    """`/api/explore/organizers/{group_slug}/categories/{item_id}`"""
+    return f"{prefix}/explore/organizers/{group_slug}/categories/{item_id}"
+
+
+def explore_organizers_group_slug_tags(group_slug):
+    """`/api/explore/organizers/{group_slug}/tags`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tags"
+
+
+def explore_organizers_group_slug_tags_item_id(group_slug, item_id):
+    """`/api/explore/organizers/{group_slug}/tags/{item_id}`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tags/{item_id}"
+
+
+def explore_organizers_group_slug_tools(group_slug):
+    """`/api/explore/organizers/{group_slug}/tools`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tools"
+
+
+def explore_organizers_group_slug_tools_item_id(group_slug, item_id):
+    """`/api/explore/organizers/{group_slug}/tools/{item_id}`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tools/{item_id}"
+
+
+def explore_recipes_group_slug(group_slug):
+    """`/api/explore/recipes/{group_slug}`"""
+    return f"{prefix}/explore/recipes/{group_slug}"
 
 
 def explore_recipes_group_slug_recipe_slug(group_slug, recipe_slug):

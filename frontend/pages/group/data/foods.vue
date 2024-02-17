@@ -59,6 +59,7 @@
       v-model="createDialog"
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.create-food')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="createFood"
     >
@@ -68,7 +69,13 @@
             v-model="createTarget.name"
             autofocus
             :label="$t('general.name')"
+            :hint="$t('data-pages.foods.example-food-singular')"
             :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field
+            v-model="createTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.foods.example-food-plural')"
           ></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('recipe.description')"></v-text-field>
           <v-autocomplete
@@ -83,18 +90,41 @@
         </v-form> </v-card-text
     ></BaseDialog>
 
+    <!-- Alias Sub-Dialog -->
+    <RecipeDataAliasManagerDialog
+      v-if="editTarget"
+      :value="aliasManagerDialog"
+      :data="editTarget"
+      @submit="updateFoodAlias"
+      @cancel="aliasManagerDialog = false"
+    />
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.edit-food')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="editSaveFood"
     >
       <v-card-text v-if="editTarget">
         <v-form ref="domEditFoodForm">
-          <v-text-field v-model="editTarget.name" :label="$t('general.name')" :rules="[validators.required]"></v-text-field>
-          <v-text-field v-model="editTarget.description" :label="$t('recipe.description')"></v-text-field>
+          <v-text-field
+            v-model="editTarget.name"
+            :label="$t('general.name')"
+            :hint="$t('data-pages.foods.example-food-singular')"
+            :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.foods.example-food-plural')"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.description"
+            :label="$t('recipe.description')"
+          ></v-text-field>
           <v-autocomplete
             v-model="editTarget.labelId"
             clearable
@@ -104,8 +134,12 @@
             :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
-        </v-form> </v-card-text
-    ></BaseDialog>
+        </v-form>
+      </v-card-text>
+      <template #custom-card-action>
+        <BaseButton edit @click="aliasManagerEventHandler">{{ $t('data-pages.manage-aliases') }}</BaseButton>
+      </template>
+    </BaseDialog>
 
     <!-- Delete Dialog -->
     <BaseDialog
@@ -117,24 +151,51 @@
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Bulk Delete Dialog -->
+    <BaseDialog
+      v-model="bulkDeleteDialog"
+      width="650px"
+      :title="$tc('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      @confirm="deleteSelected"
+    >
+      <v-card-text>
+        <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
+        <v-card outlined>
+          <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
+            <template #default="{ item }">
+              <v-list-item class="pb-2">
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$tc('data-pages.foods.food-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
       :data="foods || []"
-      :bulk-actions="[]"
+      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @create-one="createEventHandler"
+      @delete-selected="bulkDeleteEventHandler"
     >
       <template #button-row>
         <BaseButton create @click="createDialog = true" />
         <BaseButton @click="mergeDialog = true">
-          <template #icon> {{ $globals.icons.foods }} </template>
+          <template #icon> {{ $globals.icons.externalLink }} </template>
           {{ $t('data-pages.combine') }}
         </BaseButton>
       </template>
@@ -156,16 +217,18 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
+import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientFood, IngredientFood } from "~/lib/api/types/recipe";
+import { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
-  components: { MultiPurposeLabel },
+
+  components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();
@@ -182,6 +245,11 @@ export default defineComponent({
       {
         text: i18n.tc("general.name"),
         value: "name",
+        show: true,
+      },
+      {
+        text: i18n.tc("general.plural-name"),
+        value: "pluralName",
         show: true,
       },
       {
@@ -264,6 +332,37 @@ export default defineComponent({
       deleteDialog.value = false;
     }
 
+    const bulkDeleteDialog = ref(false);
+    const bulkDeleteTarget = ref<IngredientFood[]>([]);
+
+    function bulkDeleteEventHandler(selection: IngredientFood[]) {
+      bulkDeleteTarget.value = selection;
+      bulkDeleteDialog.value = true;
+    }
+
+    async function deleteSelected() {
+      for (const item of bulkDeleteTarget.value) {
+        await foodStore.actions.deleteOne(item.id);
+      }
+      bulkDeleteTarget.value = [];
+    }
+
+    // ============================================================
+    // Alias Manager
+
+    const aliasManagerDialog = ref(false);
+    function aliasManagerEventHandler() {
+      aliasManagerDialog.value = true;
+    }
+
+    function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
+      if (!editTarget.value) {
+        return;
+      }
+      editTarget.value.aliases = newAliases;
+      aliasManagerDialog.value = false;
+    }
+
     // ============================================================
     // Merge Foods
 
@@ -337,6 +436,15 @@ export default defineComponent({
       deleteEventHandler,
       deleteDialog,
       deleteFood,
+      deleteTarget,
+      bulkDeleteDialog,
+      bulkDeleteTarget,
+      bulkDeleteEventHandler,
+      deleteSelected,
+      // Alias Manager
+      aliasManagerDialog,
+      aliasManagerEventHandler,
+      updateFoodAlias,
       // Merge
       canMerge,
       mergeFoods,

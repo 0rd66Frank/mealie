@@ -1,7 +1,13 @@
 <template>
   <v-container :class="{ 'pa-0': $vuetify.breakpoint.smAndDown }">
     <v-card :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
-      <RecipePageHeader :recipe="recipe" :recipe-scale="scale" :landscape="landscape" @save="saveRecipe" @delete="deleteRecipe" />
+      <RecipePageHeader
+        :recipe="recipe"
+        :recipe-scale="scale"
+        :landscape="landscape"
+        @save="saveRecipe"
+        @delete="deleteRecipe"
+      />
       <LazyRecipeJsonEditor v-if="isEditJSON" v-model="recipe" class="mt-10" :options="EDITOR_OPTIONS" />
       <v-card-text v-else>
         <!--
@@ -66,7 +72,7 @@
     </div>
 
     <RecipePageComments
-      v-if="user.id && !recipe.settings.disableComments && !isEditForm && !isCookMode"
+      v-if="isOwnGroup && !recipe.settings.disableComments && !isEditForm && !isCookMode"
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
@@ -81,9 +87,9 @@ import {
   useRouter,
   computed,
   ref,
-  useMeta,
   onMounted,
   onUnmounted,
+useRoute,
 } from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
@@ -96,11 +102,11 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
-import { useRecipeMeta } from "~/composables/recipes";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -136,6 +142,11 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const { isOwnGroup } = useLoggedInState();
+
     const router = useRouter();
     const api = useUserApi();
     const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode } =
@@ -157,8 +168,8 @@ export default defineComponent({
       const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
       if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
         const save = window.confirm(
-          "You have unsaved changes. Do you want to save before leaving?\n\nOkay to save, Cancel to discard changes."
-        );
+          i18n.tc("general.unsaved-changes"),
+          );
 
         if (save) {
           await api.recipes.updateOne(props.recipe.slug, props.recipe);
@@ -222,21 +233,21 @@ export default defineComponent({
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        router.push("/recipe/" + data.slug);
+        router.push(`/g/${groupSlug.value}/r/` + data.slug);
       }
     }
 
     async function deleteRecipe() {
       const { data } = await api.recipes.deleteOne(props.recipe.slug);
       if (data?.slug) {
-        router.push("/");
+        router.push(`/g/${groupSlug.value}`);
       }
     }
 
     /** =============================================================
      * View Preferences
      */
-    const { $vuetify } = useContext();
+    const { $vuetify, i18n } = useContext();
 
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;
@@ -275,13 +286,11 @@ export default defineComponent({
     /** =============================================================
      * Meta Tags
      */
-    const { recipeMeta } = useRecipeMeta();
-    useMeta(recipeMeta(ref(props.recipe)));
-
     const { user } = usePageUser();
 
     return {
       user,
+      isOwnGroup,
       api,
       scale: ref(1),
       EDITOR_OPTIONS,
@@ -320,9 +329,6 @@ export default defineComponent({
 }
 .list-group {
   min-height: 38px;
-}
-.list-group-item {
-  cursor: move;
 }
 .list-group-item i {
   cursor: pointer;

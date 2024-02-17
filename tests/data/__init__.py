@@ -4,6 +4,24 @@ CWD = Path(__file__).parent
 
 locale_dir = CWD / "locale"
 
+backup_version_44e8d670719d_1 = CWD / "backups/backup_version_44e8d670719d_1.zip"
+"""44e8d670719d: add extras to shopping lists, list items, and ingredient foods"""
+
+backup_version_44e8d670719d_2 = CWD / "backups/backup_version_44e8d670719d_2.zip"
+"""44e8d670719d: add extras to shopping lists, list items, and ingredient foods"""
+
+backup_version_44e8d670719d_3 = CWD / "backups/backup_version_44e8d670719d_3.zip"
+"""44e8d670719d: add extras to shopping lists, list items, and ingredient foods"""
+
+backup_version_44e8d670719d_4 = CWD / "backups/backup_version_44e8d670719d_4.zip"
+"""44e8d670719d: add extras to shopping lists, list items, and ingredient foods"""
+
+backup_version_ba1e4a6cfe99_1 = CWD / "backups/backup_version_ba1e4a6cfe99_1.zip"
+"""ba1e4a6cfe99: added plural names and alias tables for foods and units"""
+
+backup_version_bcfdad6b7355_1 = CWD / "backups/backup_version_bcfdad6b7355_1.zip"
+"""bcfdad6b7355: remove tool name and slug unique contraints"""
+
 migrations_paprika = CWD / "migrations/paprika.zip"
 
 migrations_chowdown = CWD / "migrations/chowdown.zip"
@@ -16,9 +34,13 @@ migrations_nextcloud = CWD / "migrations/nextcloud.zip"
 
 migrations_tandoor = CWD / "migrations/tandoor.zip"
 
+migrations_plantoeat = CWD / "migrations/plantoeat.zip"
+
 images_test_image_1 = CWD / "images/test-image-1.jpg"
 
 images_test_image_2 = CWD / "images/test-image-2.png"
+
+html_mealie_recipe = CWD / "html/mealie-recipe.html"
 
 html_sous_vide_smoked_beef_ribs = CWD / "html/sous-vide-smoked-beef-ribs.html"
 

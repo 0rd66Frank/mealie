@@ -13,9 +13,9 @@
     </template>
     <v-card
       hover
-      :to="$listeners.selected || !recipe ? undefined : `/recipe/${recipe.slug}`"
-      @click="$emit('selected')"
+      :to="$listeners.selected || !recipe ? undefined : `/g/${groupSlug}/r/${recipe.slug}`"
       class="elevation-12"
+      @click="$emit('selected')"
     >
       <v-card-title class="background">
         <v-row>
@@ -85,7 +85,7 @@
                 @error="hideImage = true"
               />
               <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
-              {{ event.eventMessage }}
+                <SafeMarkdown :source="event.eventMessage" />
               </div>
           </v-col>
         </v-row>
@@ -95,15 +95,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
 export default defineComponent({
-  components: { RecipeCardMobile, RecipeTimelineContextMenu, UserAvatar },
+  components: { RecipeCardMobile, RecipeTimelineContextMenu, UserAvatar, SafeMarkdown },
 
   props: {
     event: {
@@ -121,9 +122,12 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useContext();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const useMobileFormat = computed(() => {
       return $vuetify.breakpoint.smAndDown;
@@ -187,6 +191,7 @@ export default defineComponent({
 
     return {
       attrs,
+      groupSlug,
       icon,
       eventImageUrl,
       hideImage,

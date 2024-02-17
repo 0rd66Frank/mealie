@@ -4,15 +4,15 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
       </template>
-      <template #title> Admin User Management </template>
-      Changes to this user will be reflected immediately.
+      <template #title> {{ $t("user.admin-user-management") }} </template>
+      {{ $t("user.changes-reflected-immediately") }}
     </BasePageTitle>
     <AppToolbar back> </AppToolbar>
     <v-form v-if="!userError" ref="refNewUserForm" @submit.prevent="handleSubmit">
       <v-card outlined>
         <v-card-text>
           <div class="d-flex">
-            <p>User Id: {{ user.id }}</p>
+            <p> {{ $t("user.user-id-with-value", {id: user.id} ) }}</p>
           </div>
           <v-select
             v-if="groups"
@@ -24,17 +24,34 @@
             item-value="name"
             :return-object="false"
             filled
-            label="User Group"
+            :label="$tc('group.user-group')"
             :rules="[validators.required]"
           ></v-select>
           <div class="d-flex py-2 pr-2">
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
               {{ $t("user.generate-password-reset-link") }}
             </BaseButton>
-            <AppButtonCopy v-if="resetUrl" :copy-text="resetUrl"></AppButtonCopy>
+          </div>
+          <div v-if="resetUrl" class="mb-2">
+            <v-card-text>
+              <p class="text-center pb-0">
+                {{ resetUrl }}
+              </p>
+            </v-card-text>
+            <v-card-actions class="align-center pt-0" style="gap: 4px">
+              <BaseButton cancel @click="resetUrl = ''"> {{ $t("general.close") }} </BaseButton>
+              <v-spacer></v-spacer>
+              <BaseButton v-if="user.email" color="info" class="mr-1" @click="sendResetEmail">
+                <template #icon>
+                  {{ $globals.icons.email }}
+                </template>
+                {{ $t("user.email") }}
+              </BaseButton>
+              <AppButtonCopy :icon="false" color="info" :copy-text="resetUrl" />
+            </v-card-actions>
           </div>
 
-          <AutoForm v-model="user" :items="userForm" update-mode />
+          <AutoForm v-model="user" :items="userForm" update-mode :disabled-fields="disabledFields" />
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
@@ -45,8 +62,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
-import { useAdminApi } from "~/composables/api";
+import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
+import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
@@ -59,6 +76,7 @@ export default defineComponent({
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
+    const { i18n } = useContext();
     const route = useRoute();
 
     const userId = route.value.params.id;
@@ -71,6 +89,9 @@ export default defineComponent({
     const adminApi = useAdminApi();
 
     const user = ref<UserOut | null>(null);
+    const disabledFields = computed(() => {
+      return user.value?.authMethod === "LDAP" ? ["admin"] : [];
+    })
 
     const userError = ref(false);
 
@@ -81,7 +102,7 @@ export default defineComponent({
       const { data, error } = await adminApi.users.getOne(userId);
 
       if (error?.response?.status === 404) {
-        alert.error("User Not Found");
+        alert.error(i18n.tc("user.user-not-found"));
         userError.value = true;
       }
 
@@ -108,14 +129,26 @@ export default defineComponent({
 
       if (response?.status === 201 && data) {
         const token: string = data.token;
-        resetUrl.value = `${window.location.origin}/reset-password?token=${token}`;
+        resetUrl.value = `${window.location.origin}/reset-password/?token=${token}`;
       }
 
       generatingToken.value = false;
     }
 
+    const userApi = useUserApi();
+    async function sendResetEmail() {
+      if (!user.value?.email) return;
+      const { response } = await userApi.email.sendForgotPassword({ email: user.value.email });
+      if (response && response.status === 200) {
+        alert.success(i18n.tc("profile.email-sent"));
+      } else {
+        alert.error(i18n.tc("profile.error-sending-email"));
+      }
+    }
+
     return {
       user,
+      disabledFields,
       userError,
       userForm,
       refNewUserForm,
@@ -125,6 +158,7 @@ export default defineComponent({
       handlePasswordReset,
       resetUrl,
       generatingToken,
+      sendResetEmail,
     };
   },
 });

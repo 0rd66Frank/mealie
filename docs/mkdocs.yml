@@ -51,8 +51,8 @@ extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
   - assets/js/extra.js
-repo_url: https://github.com/hay-kot/mealie/
-repo_name: hay-kot/mealie
+repo_url: https://github.com/mealie-recipes/mealie/
+repo_name: mealie-recipes/mealie
 edit_uri: edit/mealie-next/docs/docs/
 
 nav:
@@ -65,14 +65,11 @@ nav:
       - FAQ: "documentation/getting-started/faq.md"
       - API: "documentation/getting-started/api-usage.md"
       - Road Map: "documentation/getting-started/roadmap.md"
-      - Advanced: "documentation/getting-started/installation/advanced.md"
 
       - Installation:
           - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
           - SQLite (Recommended): "documentation/getting-started/installation/sqlite.md"
           - PostgreSQL: "documentation/getting-started/installation/postgres.md"
-          - Single Container (Experimental): "documentation/getting-started/installation/single-container.md"
-          - Frontend Configuration: "documentation/getting-started/installation/frontend-config.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
       - Usage:
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
@@ -93,6 +90,7 @@ nav:
       - Developers Guide:
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
+          - Maintainers Guide: "contributors/developers-guide/maintainers.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
 

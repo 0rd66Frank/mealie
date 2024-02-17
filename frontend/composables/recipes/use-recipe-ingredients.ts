@@ -1,13 +1,38 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
-import { RecipeIngredient } from "~/lib/api/types/recipe";
+import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
 const { frac } = useFraction();
 
-function sanitizeIngredientHTML(rawHtml: string) {
+export function sanitizeIngredientHTML(rawHtml: string) {
   return DOMPurify.sanitize(rawHtml, {
     USE_PROFILES: { html: true },
     ALLOWED_TAGS: ["b", "q", "i", "strong", "sup"],
   });
+}
+
+function useFoodName(food: CreateIngredientFood | IngredientFood | undefined, usePlural: boolean) {
+  if (!food) {
+    return "";
+  }
+
+  return (usePlural ? food.pluralName || food.name : food.name) || "";
+}
+
+function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, usePlural: boolean) {
+  if (!unit) {
+    return "";
+  }
+
+  let returnVal = "";
+  if (unit.useAbbreviation) {
+    returnVal = (usePlural ? unit.pluralAbbreviation || unit.abbreviation : unit.abbreviation) || "";
+  }
+
+  if (!returnVal) {
+    returnVal = (usePlural ? unit.pluralName || unit.name : unit.name) || "";
+  }
+
+  return returnVal;
 }
 
 export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1, includeFormating = true) {
@@ -21,10 +46,10 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   }
 
   const { quantity, food, unit, note } = ingredient;
+  const usePluralUnit = quantity !== undefined && (quantity * scale > 1 || quantity * scale === 0);
+  const usePluralFood = (!quantity) || quantity * scale > 1
 
   let returnQty = "";
-
-  let unitDisplay = unit?.name;
 
   // casting to number is required as sometimes quantity is a string
   if (quantity && Number(quantity) !== 0) {
@@ -42,16 +67,15 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
     } else {
       returnQty = (quantity * scale).toString();
     }
-
-    if (unit?.useAbbreviation && unit.abbreviation) {
-      unitDisplay = unit.abbreviation;
-    }
   }
+
+  const unitName = useUnitName(unit, usePluralUnit);
+  const foodName = useFoodName(food, usePluralFood);
 
   return {
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
-    unit: unitDisplay ? sanitizeIngredientHTML(unitDisplay) : undefined,
-    name: food?.name ? sanitizeIngredientHTML(food.name) : undefined,
+    unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
+    name: foodName ? sanitizeIngredientHTML(foodName) : undefined,
     note: note ? sanitizeIngredientHTML(note) : undefined,
   };
 }

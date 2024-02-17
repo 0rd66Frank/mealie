@@ -26,14 +26,15 @@
       </TransitionGroup>
     </draggable>
     <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
-    <div class="d-flex justify-end mt-2">
+    <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
       <v-tooltip top color="accent">
         <template #activator="{ on, attrs }">
           <span v-on="on">
             <BaseButton
+              class="mb-1"
               :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
               color="accent"
-              :to="`${recipe.slug}/ingredient-parser`"
+              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
               v-bind="attrs"
             >
               <template #icon>
@@ -45,15 +46,15 @@
         </template>
         <span>{{ parserToolTip }}</span>
       </v-tooltip>
-      <RecipeDialogBulkAdd class="ml-1 mr-1" @bulk-data="addIngredient" />
-      <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
+      <RecipeDialogBulkAdd class="mx-1 mb-1" @bulk-data="addIngredient" />
+      <BaseButton class="mb-1" @click="addIngredient" > {{ $t("general.new") }} </BaseButton>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import draggable from "vuedraggable";
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext, useRoute } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -75,9 +76,12 @@ export default defineComponent({
   setup(props) {
     const { user } = usePageUser();
     const { imageKey } = usePageState(props.recipe.slug);
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
 
     const drag = ref(false);
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const hasFoodOrUnit = computed(() => {
       if (!props.recipe) {
@@ -138,6 +142,7 @@ export default defineComponent({
 
     return {
       user,
+      groupSlug,
       addIngredient,
       parserToolTip,
       hasFoodOrUnit,

@@ -76,7 +76,8 @@
     "cookbook-events": "Udalosti kuchárky",
     "tag-events": "Udalosti štítkov",
     "category-events": "Udalosti kategórií",
-    "when-a-new-user-joins-your-group": "Keď sa k vašej skupine pripojí nový užívateľ"
+    "when-a-new-user-joins-your-group": "Keď sa k vašej skupine pripojí nový užívateľ",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Zrušiť",
@@ -113,7 +114,10 @@
     "json": "JSON",
     "keyword": "Kľučové slovo",
     "link-copied": "Odkaz bol skopírovaný",
+    "loading": "Načítavam",
     "loading-events": "Načítanie udalostí",
+    "loading-recipe": "Načítavam recept...",
+    "loading-ocr-data": "Načítavam OCR dáta...",
     "loading-recipes": "Nahrávanie receptu",
     "message": "Správa",
     "monday": "Pondelok",
@@ -124,6 +128,7 @@
     "no-recipe-found": "Žiadny recept nenájdený",
     "ok": "OK",
     "options": "Možnosti:",
+    "plural-name": "Meno v množnom čísle",
     "print": "Tlačiť",
     "print-preferences": "Nastavenia tlače",
     "random": "Náhodné",
@@ -192,7 +197,10 @@
     "export-all": "Exportovať všetko",
     "refresh": "Obnoviť",
     "upload-file": "Nahrať súbor",
-    "created-on-date": "Vytvorené: {0}"
+    "created-on-date": "Vytvorené: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -207,6 +215,7 @@
     "group-id-with-value": "ID skupiny: {groupID}",
     "group-name": "Názov skupiny",
     "group-not-found": "Skupina nebola nájdená",
+    "group-token": "Group Token",
     "group-with-value": "Skupina: {groupID}",
     "groups": "Skupiny",
     "manage-groups": "Spravovať skupiny",
@@ -242,6 +251,7 @@
     "general-preferences": "Všeobecné nastavenia",
     "group-recipe-preferences": "Nastavenia receptu v rámci skupiny",
     "report": "Report",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Spravovanie skupiny",
     "admin-group-management": "Spravovanie administrátorskej skupiny",
     "admin-group-management-text": "Zmeny týkajúce sa tejto skupiny budú vykonané okamžite.",
@@ -249,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Vytvoriť nový jedálniček",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večera tento týždeň",
     "dinner-today": "Večera dnes",
     "dinner-tonight": "VEČERA NA DNES",
@@ -296,7 +307,7 @@
     "for-type-meal-types": "na {0} druhy jedál",
     "meal-plan-rules": "Pravidlá jedálnička",
     "new-rule": "Nové pravidlo",
-    "meal-plan-rules-description": "Môžete vytvoriť pravidlá pre automatizovaný výber receptov pre váš jedálniček. Tieto pravidlá používa server pre určenie skupiny receptov, z ktorých náhodne vyberá pri tvorbe jedálničkov. V prípade, ak majú pravidlá rovnaké obmedzenia na dni/typy jedál, sú príslušné kategórie pravidiel zlúčené. Bežne nie je nutné vytvárať duplicitné pravidlá, ale v prípade potreby je to možné.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Pri tvorbe nového pravidla pre jedálniček môžete účinnosť pravidla obmedziť len na špecifický deň v týždni a/alebo špecifický typ jedla. Pre uplatnenie pravidla na všetky dni v týždni alebo všetky typy jedál nastavte pravidlo pre \"Všetky\", čím uplatníte pravidlo na všetky dni a/alebo typy jedál.",
     "recipe-rules": "Pravidlá receptov",
     "applies-to-all-days": "Platí pre všetky dni",
@@ -345,7 +356,11 @@
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie dokáže importovať recepty z aplikácie Paprika. Exportujte vaše recepty z Papriky, premenujte príponu exportovaného súboru na .zip a nahrajte ho nižšie.",
-    "mealie-text": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné z exportu importovať iba recepty."
+    "mealie-text": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné z exportu importovať iba recepty.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Hromadné pridanie",
@@ -456,9 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "Formát YYY-MM-DD",
     "add-to-list": "Pridať do zoznamu",
     "add-to-plan": "Pridať do plánu",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept bol pridaný do zoznamu",
+    "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recept bol pridaný do stravovacieho plánu",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Počet porcií",
     "quantity": "Množstvo",
     "choose-unit": "Vyberte jednotku",
@@ -479,6 +499,13 @@
     "increase-scale-label": "Zvýšiť škálovanie o 1",
     "locked": "Zamknuté",
     "public-link": "Verejný odkaz",
+    "timer": {
+      "kitchen-timer": "Kuchynský časovač",
+      "start-timer": "Spustiť časovač",
+      "pause-timer": "Pozastaviť časovač",
+      "resume-timer": "Znova spustiť časovač",
+      "stop-timer": "Zastaviť časovač"
+    },
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
     "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
@@ -488,10 +515,11 @@
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril/-a",
     "last-made-date": "Posledne pripravené {date}",
-    "api-extras-description": "Extras receptov sú kľúčovou funkcionalitou Mealie API. Umožňujú užívateľom vytvárať vlastné json páry kľúč/hodnota z receptu, aby ich bolo možné použiť v aplikáciách tretej strany. Údaje uložené pod jednotlivými kľúčmi je možné využiť ako spúšťač automatizovaných procesov, či zasielania vlastných správ do vami zvolených zariadení.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Kľúč správy",
     "parse": "Analyzovať",
     "attach-images-hint": "Pridaj obrázky ich potiahnutím a pustením na editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Povoľ množstvám prísad využívať túto vlastnosť",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepty so stanovenými jednotkami alebo jedlami nie je možné parsovať.",
     "parse-ingredients": "Analyzuj suroviny",
@@ -509,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Názvy nových receptov musia byť jedinečné",
     "scrape-recipe": "Scrapovať recept",
     "scrape-recipe-description": "Stiahne recept zo zadaného url odkazu. Zadajte url stránky, z ktorej chcete stiahnuť recept, a Mealie sa pokúsi recept stiahnuť a vložiť do vašej zbierky.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importuj pôvodné kľúčové slová ako tagy",
     "stay-in-edit-mode": "Zostať v režime editovania",
     "import-from-zip": "Importovať zo Zip-súboru",
@@ -529,7 +559,10 @@
     "tree-view": "Stromový pohľad",
     "recipe-yield": "Počet porcií",
     "unit": "Jednotka",
-    "upload-image": "Nahrať obrázok"
+    "upload-image": "Nahrať obrázok",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
@@ -547,14 +580,17 @@
     "tag-filter": "Filter štítkov",
     "search-hint": "Stlač '/'",
     "advanced": "Rozšírené",
-    "auto-search": "Automatické vyhľadávanie"
+    "auto-search": "Automatické vyhľadávanie",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
     "admin-settings": "Nastavenia správcu",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Záloha vytvorená v {path}",
       "backup-deleted": "Záloha bola odstránená",
+      "restore-success": "Restore successful",
       "backup-tag": "Označenie zálohy",
       "create-heading": "Vytvoriť zálohu",
       "delete-backup": "Odstrániť zálohu",
@@ -564,7 +600,6 @@
       "partial-backup": "Čiastočná záloha",
       "unable-to-delete-backup": "Zálohu nebolo možné odstrániť.",
       "experimental-description": "Zálohuje kompletný aktuálny obsah databázy a adresára s dátami inštalácie Mealie. Toto zahŕňa všetky dáta, pričom nie je možné zo zálohy vylúčiť akúkoľvek podskupinu dát. Takúto zálohu možno považovať za obraz dátového obsahu Mealie v danom čase. Aktuálne, {not-crossed-version} (dátové migrácie nie sú vykonávané automaticky). Táto funkcionalita slúži ako databázovo agnostický spôsob exportovania a importovania dát alebo ako záloha inštalácie na externú lokáciu.",
-      "not-crossed-version": "tento mechanizmus zálohovania nie je verziovo nezávislý a preto nemôže byť použití pri dátovej migrácii medzi rôznymi verziami",
       "backup-restore": "Uložiť zálohu",
       "back-restore-description": "Obnovenie tejto zálohy prepíše všetky aktuálne údaje vo vašej databáze a dáta v dátovom adresári a nahradí ich obsahom tejto zálohy. {cannot-be-undone} Po úspešnom obnovení budete odhlásený.",
       "cannot-be-undone": "Túto akciu nie je možné vrátiť späť - používajte s rozvahou.",
@@ -664,11 +699,13 @@
     "configuration": "Nastavenie",
     "docker-volume": "Docker objem",
     "docker-volume-help": "Mealie vyžaduje, aby frontend a backend zdieľali rovnaký dockerový objem alebo úložisko. Toto umožňuje, aby frontend mohol správne pristupovať k obrázkom a ďalším doplnkom uloženým na disku.",
-    "volumes-are-misconfigured": "Objemy nie sú správne nastavené",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Objemy sú nastavené správne.",
     "status-unknown-try-running-a-validation": "Neznámy stav. Skúste vykonať overenie.",
     "validate": "Overiť",
     "email-configuration-status": "Stav nastavenia e-mailu",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Pripravený",
     "not-ready": "Nepripravený - Overte premenné prostredia",
     "succeeded": "Podarilo sa",
@@ -759,7 +796,8 @@
     "tags": "Štítky",
     "untagged-count": "Neoznačené {count}",
     "create-a-tag": "Vytvoriť štítok",
-    "tag-name": "Názov štítku"
+    "tag-name": "Názov štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -768,7 +806,8 @@
     "tool-name": "Názov náčinia",
     "create-new-tool": "Vytvoriť nové náčinie",
     "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)",
-    "required-tools": "Potrebné nástroje"
+    "required-tools": "Potrebné nástroje",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrátor",
@@ -803,6 +842,7 @@
     "password-updated": "Heslo bolo aktualizované",
     "password": "Heslo",
     "password-strength": "Sila hesla je {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registrácia",
     "reset-password": "Resetovať heslo",
     "sign-in": "Prihlásiť sa",
@@ -823,6 +863,7 @@
     "username": "Užívateľské meno",
     "users-header": "Používatelia",
     "users": "Užívatelia",
+    "user-not-found": "User not found",
     "webhook-time": "Čas webhookov",
     "webhooks-enabled": "Webhooky povolené",
     "you-are-not-allowed-to-create-a-user": "Nie Ste oprávnený vytvoriť nového užívateľa",
@@ -845,6 +886,7 @@
     "user-management": "Správa užívateľov",
     "reset-locked-users": "Obnov uzamknutých užívateľov",
     "admin-user-creation": "Vytvorenie administrátorského používateľa",
+    "admin-user-management": "Admin User Management",
     "user-details": "Údaje o užívateľovi",
     "user-name": "Užívateľské meno",
     "authentication-method": "Metóda overenia",
@@ -854,7 +896,12 @@
     "user-can-invite-other-to-group": "Užívateľ môže do skupiny pozvať ďalších",
     "user-can-manage-group": "Užívateľ môže spravovať skupinu",
     "user-can-organize-group-data": "Užívateľ môže spravovať údaje skupiny",
-    "enable-advanced-features": "Povoliť pokročilé funkcie"
+    "enable-advanced-features": "Povoliť pokročilé funkcie",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "preložené",
@@ -875,7 +922,9 @@
       "create-food": "Vytvoriť jedlo",
       "food-label": "Značka jedla",
       "edit-food": "Upraviť jedlo",
-      "food-data": "Údaje o jedle"
+      "food-data": "Údaje o jedle",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -886,13 +935,18 @@
       "merging-unit-into-unit": "Zlúčiť {0} do {1}",
       "create-unit": "Vytvoriť jednotku",
       "abbreviation": "Skratky",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Popis",
       "display-as-fraction": "Zobraziť ako zlomok",
       "use-abbreviation": "Použiť skratky",
       "edit-unit": "Upraviť jednotku",
       "unit-data": "Údaje o jednotke",
       "use-abbv": "Použiť skrt.",
-      "fraction": "Zlomok"
+      "fraction": "Zlomok",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -921,6 +975,8 @@
       "delete-recipes": "Odstrániť recepty",
       "source-unit-will-be-deleted": "Zdroj bude vymazaný"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Naplniť dáta",
     "seed": "Zdroj",
     "data-management": "Správa dát",
@@ -928,10 +984,26 @@
     "select-data": "Vyberte dáta",
     "select-language": "Vyberte jazyk",
     "columns": "Stĺpce",
-    "combine": "Kombinovať"
+    "combine": "Kombinovať",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registrácia",
+    "registration-success": "Registration Success",
     "join-a-group": "Pridať sa do skupiny",
     "create-a-new-group": "Vytvoriť novú skupinu",
     "provide-registration-token-description": "Zadajte registračný kľuč priradený ku skupine, ku ktorej sa chcete pripojiť. Budete ho musieť získať od existujúceho člena skupiny.",
@@ -978,6 +1050,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR editor",
+    "toolbar": "Toolbar",
     "selection-mode": "Režim výberu",
     "pan-and-zoom-picture": "Priblížiť a posunúť obrázok",
     "split-text": "Rozdeliť text",
@@ -985,6 +1058,8 @@
     "split-by-block": "Rozdeliť podľa blokov textu",
     "flatten": "Zrovnať bez ohľadu na pôvodné formátovanie",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Režim výberu (predvolený)",
       "selection-mode-desc": "Režim výberu je hlavný režim, ktorý môže byť použitý na zadávanie údajov:",
       "selection-mode-steps": {
@@ -1060,6 +1135,7 @@
     "welcome-user": "👋 Vitajte, {0}",
     "description": "Spravujte svoj profil, recepty a nastavenia skupín.",
     "get-invite-link": "Odkaz s pozvánkou",
+    "get-public-link": "Get Public Link",
     "account-summary": "Zhrnutie účtu",
     "account-summary-description": "Tu je zhrnutie informácií o vašej skupine",
     "group-statistics": "Štatistiky skupiny",
@@ -1110,6 +1186,8 @@
     "require-all-tags": "Vyžadovať všetky štítky",
     "require-all-tools": "Vyžadovať všetky nástroje",
     "cookbook-name": "Názov kuchárky",
-    "cookbook-with-name": "Kuchárka {0}"
+    "cookbook-with-name": "Kuchárka {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

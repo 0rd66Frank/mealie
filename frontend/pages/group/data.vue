@@ -6,7 +6,6 @@
       </template>
       <template #title> {{ $t('data-pages.data-management') }} </template>
       {{ $t('data-pages.data-management-description') }}
-      <BannerExperimental class="mt-5"></BannerExperimental>
       <template #content>
         <div>
           <BaseOverflowButton
@@ -44,13 +43,19 @@ export default defineComponent({
       foods: i18n.tc("general.foods"),
       units: i18n.tc("general.units"),
       labels: i18n.tc("data-pages.labels.labels"),
+      categories: i18n.tc("category.categories"),
+      tags: i18n.tc("tag.tags"),
+      tools: i18n.tc("tool.tools"),
     };
 
-    const DATA_TYPE_OPTIONS = [
+    const route = useRoute();
+
+    const DATA_TYPE_OPTIONS = computed(() => [
       {
         text: i18n.t("general.recipes"),
         value: "new",
         to: "/group/data/recipes",
+        divider: true,
       },
       {
         text: i18n.t("general.foods"),
@@ -66,10 +71,24 @@ export default defineComponent({
         text: i18n.t("data-pages.labels.labels"),
         value: "new",
         to: "/group/data/labels",
+        divider: true,
       },
-    ];
-
-    const route = useRoute();
+      {
+        text: i18n.t("category.categories"),
+        value: "new",
+        to: "/group/data/categories",
+      },
+      {
+        text: i18n.t("tag.tags"),
+        value: "new",
+        to: "/group/data/tags",
+      },
+      {
+        text: i18n.t("tool.tools"),
+        value: "new",
+        to: "/group/data/tools",
+      }
+    ]);
 
     const buttonText = computed(() => {
       const last = route.value.path.split("/").pop();
